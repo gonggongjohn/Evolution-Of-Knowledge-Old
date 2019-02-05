@@ -1,0 +1,15 @@
+[
+{
+  "modid": "eok",
+  "name": "Evolution Of Knowledge",
+  "description": "",
+  "version": "1.0.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["GONGGONGJOHN"],
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
