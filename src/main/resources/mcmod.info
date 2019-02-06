@@ -2,8 +2,8 @@
 {
   "modid": "eok",
   "name": "Evolution Of Knowledge",
-  "description": "",
-  "version": "1.0.0",
+  "description": "A MC Mod Giving A Panoramic Overview Of S&T Evolution In Human History",
+  "version": "0.0.1",
   "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
