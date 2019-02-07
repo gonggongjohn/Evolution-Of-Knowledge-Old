@@ -1,9 +1,6 @@
 package com.gonggongjohn.eok;
 
-import com.gonggongjohn.eok.handlers.BlockHandler;
-import com.gonggongjohn.eok.handlers.GuiHandler;
-import com.gonggongjohn.eok.handlers.ItemHandler;
-import com.gonggongjohn.eok.handlers.TileEntityHandler;
+import com.gonggongjohn.eok.handlers.*;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -32,6 +29,7 @@ public class EOK{
         ItemHandler.registerItem();
         BlockHandler.setupBlock();
         BlockHandler.registerBlock();
+        ResearchHandler.setupResearch();
         TileEntityHandler.registerTileEntities();
         NetworkRegistry.INSTANCE.registerGuiHandler(EOK.instance, new GuiHandler());
         proxy.preInit(event);

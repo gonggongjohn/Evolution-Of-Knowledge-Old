@@ -1,6 +1,7 @@
 package com.gonggongjohn.eok.handlers;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Logger;
 
@@ -31,4 +32,5 @@ public class ConfigHandler {
     {
         return logger;
     }
+
 }

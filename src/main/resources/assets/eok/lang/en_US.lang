@@ -2,4 +2,7 @@ item.eokSymbol.name=Symbol Of EOK
 
 tile.researchTableAncient.name=Ancient Research Table
 
+research1.name=Physics
+research1.description=This is a description.
+
 itemGroup.eok=Evolution Of Knowledge
