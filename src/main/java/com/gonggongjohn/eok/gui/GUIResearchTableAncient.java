@@ -10,22 +10,25 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 
-public class GUIResearchTableAncient extends GuiContainer {
+
+public class GUIResearchTableAncient extends GuiContainer{
     private ResourceLocation texture = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchTableAncient.png");
     private InventoryPlayer inventory;
     private TEResearchTableAncient te;
-    private static final int Research1 = 0;
-    private static int lastMouseX = 0, lastMouseY = 0, ftag = 0;
+    private static final int rscCount = 3;
+    private static Logger logger;
 
     public GUIResearchTableAncient(TEResearchTableAncient te, EntityPlayer player) {
         super(new ContainerResearchTableAncient(te, player));
         inventory = player.inventory;
         this.te = te;
-
+        logger = LogManager.getLogger(EOK.MODID);
     }
 
     @Override
@@ -50,44 +53,9 @@ public class GUIResearchTableAncient extends GuiContainer {
     public void initGui(){
         super.initGui();
         int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(Research1, offsetX +59, offsetY + 39, 21, 21, ""){
-            @Override
-            public void drawButton(Minecraft mc, int mouseX, int mouseY){
-                if(this.visible){
-                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                    mc.getTextureManager().bindTexture(texture);
-                    if(Mouse.isButtonDown(0)){
-                        {
-                            if(ftag==0){
-                                lastMouseX=mouseX;
-                                lastMouseY=mouseY;
-                                ftag=1;
-                            }
-                            else{
-                                this.xPosition=this.xPosition + mouseX - lastMouseX;
-                                this.yPosition=this.yPosition + mouseY - lastMouseY;
-                            }
-                            lastMouseX=mouseX;
-                            lastMouseY=mouseY;
-                        }
-                    }
-                    else ftag=0;
-                    int x = mouseX - this.xPosition, y = mouseY - this.yPosition;
-                    if (x >= 0 && y >= 0 && x < this.width && y < this.height)
-                    {
-                        this.drawTexturedModalRect(this.xPosition, this.yPosition, 25, 214, this.width, this.height);
-                        String name = I18n.format("research1.name");
-                        String description = I18n.format("research1.description");
-                        this.drawString(fontRendererObj, name, mouseX + 3, mouseY + 3, 0x404040);
-                        this.drawString(fontRendererObj, description, mouseX + 3, mouseY + 15, 0x404040);
-                    }
-                    else
-                    {
-                        this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 214, this.width, this.height);
-                    }
-                }
-            }
-        });
+        for(int i = 0; i < rscCount; i++) {
+            this.buttonList.add(new IGuiButton(i, offsetX + this.xSize / (rscCount + 1) * (i + 1), offsetY + this.ySize / (rscCount + 1), 21, 21, ""));
+        }
     }
 }
 
