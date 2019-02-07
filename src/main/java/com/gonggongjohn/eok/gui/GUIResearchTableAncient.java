@@ -10,15 +10,16 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
 
 public class GUIResearchTableAncient extends GuiContainer {
     private ResourceLocation texture = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchTableAncient.png");
     private InventoryPlayer inventory;
     private TEResearchTableAncient te;
     private static final int Research1 = 0;
-    private static final int x = 255;
-    private static final int y = 210;
+    private static int lastMouseX = 0, lastMouseY = 0, ftag = 0;
 
     public GUIResearchTableAncient(TEResearchTableAncient te, EntityPlayer player) {
         super(new ContainerResearchTableAncient(te, player));
@@ -55,8 +56,23 @@ public class GUIResearchTableAncient extends GuiContainer {
                 if(this.visible){
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                     mc.getTextureManager().bindTexture(texture);
+                    if(Mouse.isButtonDown(0)){
+                        {
+                            if(ftag==0){
+                                lastMouseX=mouseX;
+                                lastMouseY=mouseY;
+                                ftag=1;
+                            }
+                            else{
+                                this.xPosition=this.xPosition + mouseX - lastMouseX;
+                                this.yPosition=this.yPosition + mouseY - lastMouseY;
+                            }
+                            lastMouseX=mouseX;
+                            lastMouseY=mouseY;
+                        }
+                    }
+                    else ftag=0;
                     int x = mouseX - this.xPosition, y = mouseY - this.yPosition;
-
                     if (x >= 0 && y >= 0 && x < this.width && y < this.height)
                     {
                         this.drawTexturedModalRect(this.xPosition, this.yPosition, 25, 214, this.width, this.height);
