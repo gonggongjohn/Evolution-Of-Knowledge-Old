@@ -2,6 +2,7 @@ package com.gonggongjohn.eok;
 
 import com.gonggongjohn.eok.handlers.BlockHandler;
 import com.gonggongjohn.eok.handlers.GuiHandler;
+import com.gonggongjohn.eok.handlers.ItemHandler;
 import com.gonggongjohn.eok.handlers.TileEntityHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -23,8 +24,12 @@ public class EOK{
     @Mod.Instance
     public static EOK instance;
 
+    public static CreativeTabEOK tabEOK = new CreativeTabEOK();
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        ItemHandler.setupItem();
+        ItemHandler.registerItem();
         BlockHandler.setupBlock();
         BlockHandler.registerBlock();
         TileEntityHandler.registerTileEntities();

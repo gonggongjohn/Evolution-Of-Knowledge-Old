@@ -27,9 +27,8 @@ public class GUIResearchTableAncient extends GuiContainer {
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-        this.xSize = 251;
-        this.ySize = 167;
+        this.xSize = 255;
+        this.ySize = 210;
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
 
