@@ -4,15 +4,12 @@ import com.gonggongjohn.eok.EOK;
 import com.gonggongjohn.eok.containers.ContainerResearchTableAncient;
 import com.gonggongjohn.eok.tileEntities.TEResearchTableAncient;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 
@@ -54,7 +51,7 @@ public class GUIResearchTableAncient extends GuiContainer{
         super.initGui();
         int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
         for(int i = 0; i < rscCount; i++) {
-            this.buttonList.add(new IGuiButton(i, offsetX + this.xSize / (rscCount + 1) * (i + 1), offsetY + this.ySize / (rscCount + 1), 21, 21, ""));
+            this.buttonList.add(new IRTAButton(i, offsetX + this.xSize / (rscCount + 1) * (i + 1), offsetY + this.ySize / (rscCount + 1), 36, 36, ""));
         }
     }
 }
