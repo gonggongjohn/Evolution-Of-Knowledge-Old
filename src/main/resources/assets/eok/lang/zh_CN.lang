@@ -1,0 +1,12 @@
+item.eokSymbol.name=EOK测试物品
+
+tile.researchTableAncient.name=原始研究台
+
+research0.name=原始世界
+research0.description=这是人类文明尚未产生的时代。在这里，只有杀戮与黑暗……
+research1.name=观察法
+research1.description=这是你与生俱来就拥有的能力
+research2.name=文明的起源
+research2.description=在人类进入文明社会之前，人们已经开始尝试探索并运用自然的规律
+
+itemGroup.eok= 从无知到先知

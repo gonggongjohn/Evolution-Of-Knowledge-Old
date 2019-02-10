@@ -50,9 +50,9 @@ public class GUIResearchTableAncient extends GuiContainer{
     public void initGui(){
         super.initGui();
         int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
-        for(int i = 0; i < rscCount; i++) {
-            this.buttonList.add(new IRTAButton(i, offsetX + this.xSize / (rscCount + 1) * (i + 1), offsetY + this.ySize / (rscCount + 1), 36, 36, ""));
-        }
+        //for(int i = 0; i < rscCount; i++) {
+        this.buttonList.add(new IRTAButton(2, offsetX + this.xSize / (rscCount + 1) * (1 + 1), offsetY + this.ySize / (rscCount + 1), 36, 36, ""));
+        //}
     }
 }
 

@@ -10,8 +10,8 @@ public class ResearchData {
     }
 
     public static void setup(){
-        setCoordinate(0,0,0);
-        setCoordinate(1,1,1);
+        setCoordinate(0,1,0);
+        setCoordinate(1,2,0);
         setCoordinate(2,2,2);
         setCoordinate(3,3,3);
     }

@@ -49,6 +49,6 @@ public class EOK{
 
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event){
-
+        new ProfileHandler();
     }
 }

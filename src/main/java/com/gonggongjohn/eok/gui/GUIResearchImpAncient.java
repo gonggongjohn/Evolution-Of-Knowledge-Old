@@ -13,10 +13,12 @@ import org.lwjgl.opengl.GL11;
 public class GUIResearchImpAncient extends GuiScreen {
     private ResourceLocation texture = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchImpAncient.png");
     private int id;
-    protected int xSize = 176;
-    protected int ySize = 166;
+    protected int xSize;
+    protected int ySize;
     private static Logger logger;
-
+    ResearchBase rs = new ResearchBase(0);
+    ResearchBase ru = new ResearchBase(1);
+    ResearchBase rt = new ResearchBase(id);
 
     public GUIResearchImpAncient(int id) {
         this.id = id;
@@ -33,14 +35,26 @@ public class GUIResearchImpAncient extends GuiScreen {
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        if(((IRIAButton)this.buttonList.get(3)).unlock == 1){
+            ((IRIAButton)this.buttonList.get(1)).tag = 2;
+            ((IRIAButton)this.buttonList.get(2)).contain = 1;
+            ((IRIAButton)this.buttonList.get(2)).id = 1;
+        }
+        super.drawScreen(par1, par2, par3);
     }
 
     @Override
     public void initGui(){
-        ResearchBase r = new ResearchBase(id);
-        logger.info("X = " + r.dotX);
-        logger.info("Y = " + r.dotY);
-
+        super.initGui();
+        int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
+        //右上
+        this.buttonList.add(new IRIAButton(0, offsetX + 150, offsetY + 22, 33, 33, "").setTag(0).setContain(0));
+        //右下
+        this.buttonList.add(new IRIAButton(2, offsetX + 200, offsetY + 165, 33, 33, "").setTag(1).setContain(2));
+        //右中
+        this.buttonList.add(new IRIAButton(999, offsetX + 179, offsetY + 94, 33, 33, "").setTag(1).setContain(3));
+        //左中
+        this.buttonList.add(new IRIAButton(1, offsetX + 25, offsetY + (this.ySize / 2), 33, 33, "").setTag(2).setContain(1).setUtil(rs, rt, ru));
     }
 
     @Override

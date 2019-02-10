@@ -2,11 +2,14 @@ item.eokSymbol.name=Symbol Of EOK
 
 tile.researchTableAncient.name=Ancient Research Table
 
-research0.name=Maths
-research0.description=This is a description.
-research1.name=Physics
-research1.description=This is a description.
-research2.name=Chemistry
-research2.description=This is a description.
+research0.name=Original World
+research0.description=This Is When People Had Not Been Civilized Yet...
+research1.name=Observational Method
+research1.description=Observational Method Is The Ability You Were Born With.
+research2.name=The Origin Of Science
+research2.description=At the ancient time when human beings hadn't been civilized, people tried to discover and utilize the law of nature...
+
+research999.name=Unfilled
+research999.description=Wait For Deduction...
 
 itemGroup.eok=Evolution Of Knowledge

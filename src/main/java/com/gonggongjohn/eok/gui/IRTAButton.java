@@ -16,14 +16,14 @@ public class IRTAButton extends GuiButton {
         super(p_i1021_1_, p_i1021_2_, p_i1021_3_, p_i1021_4_, p_i1021_5_, p_i1021_6_);
     }
 
-
+    @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         if (this.visible) {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             mc.getTextureManager().bindTexture(texture);
             int x = mouseX - this.xPosition, y = mouseY - this.yPosition;
             if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 36, 228, this.width, this.height);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 35, 221, this.width, this.height);
                 String name = I18n.format("research"+this.id+".name");
                 String description = I18n.format("research"+this.id+".description");
                 this.drawString(mc.fontRenderer, name, mouseX + 3, mouseY + 3, 0x404040);
@@ -32,7 +32,7 @@ public class IRTAButton extends GuiButton {
                     mc.displayGuiScreen(new GUIResearchImpAncient(id));
                 }
             } else {
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 228, this.width, this.height);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 1, 221, this.width, this.height);
                 if (Mouse.isButtonDown(0)) {
                     {
                         if (ftag == 0) {
