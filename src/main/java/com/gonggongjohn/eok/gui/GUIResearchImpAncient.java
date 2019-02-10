@@ -33,4 +33,8 @@ public class GUIResearchImpAncient extends GuiScreen {
     public boolean doesGuiPauseGame(){
         return false;
     }
+
+    public int getId(){
+        return this.id;
+    }
 }
