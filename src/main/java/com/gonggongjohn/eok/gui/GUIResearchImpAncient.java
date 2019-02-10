@@ -1,9 +1,13 @@
 package com.gonggongjohn.eok.gui;
 
 import com.gonggongjohn.eok.EOK;
+import com.gonggongjohn.eok.utils.ResearchBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 public class GUIResearchImpAncient extends GuiScreen {
@@ -11,10 +15,12 @@ public class GUIResearchImpAncient extends GuiScreen {
     private int id;
     protected int xSize = 176;
     protected int ySize = 166;
+    private static Logger logger;
 
 
     public GUIResearchImpAncient(int id) {
         this.id = id;
+        logger = LogManager.getLogger(EOK.MODID);
     }
 
     @Override
@@ -30,11 +36,16 @@ public class GUIResearchImpAncient extends GuiScreen {
     }
 
     @Override
+    public void initGui(){
+        ResearchBase r = new ResearchBase(id);
+        logger.info("X = " + r.dotX);
+        logger.info("Y = " + r.dotY);
+
+    }
+
+    @Override
     public boolean doesGuiPauseGame(){
         return false;
     }
 
-    public int getId(){
-        return this.id;
-    }
 }

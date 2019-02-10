@@ -1,6 +1,9 @@
 package com.gonggongjohn.eok.utils;
 
 public class ResearchUtils {
+    public static double coordX[] = new double[1000];
+    public static double coordY[] = new double[1000];
+
     private static double abs(double x){
         return x >= 0.0? x: -x;
     }

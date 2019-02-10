@@ -31,7 +31,6 @@ public class GUIResearchTableAncient extends GuiContainer{
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.xSize = 255;
         this.ySize = 210;

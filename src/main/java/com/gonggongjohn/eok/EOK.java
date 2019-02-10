@@ -1,11 +1,13 @@
 package com.gonggongjohn.eok;
 
+import com.gonggongjohn.eok.data.ResearchData;
 import com.gonggongjohn.eok.handlers.*;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = EOK.MODID, name = EOK.NAME, version = EOK.VERSION, useMetadata = true)
@@ -29,7 +31,7 @@ public class EOK{
         ItemHandler.registerItem();
         BlockHandler.setupBlock();
         BlockHandler.registerBlock();
-        ResearchHandler.setupResearch();
+        ResearchData.setup();
         TileEntityHandler.registerTileEntities();
         NetworkRegistry.INSTANCE.registerGuiHandler(EOK.instance, new GuiHandler());
         proxy.preInit(event);
@@ -43,5 +45,10 @@ public class EOK{
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
+    }
+
+    @Mod.EventHandler
+    public void serverStarting(FMLServerStartingEvent event){
+
     }
 }
