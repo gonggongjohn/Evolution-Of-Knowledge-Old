@@ -7,7 +7,7 @@ public class ResearchBase {
     //public int category;
     //public String name;
     //该研究对应的前置研究的ID（由于可能不止有一个前置因此为数组型）
-    public int[] fatherResearch;
+    public int fatherResearch;
     //该研究对应的抽象空间中的点的坐标（目前为二维将来可能拓展至三维）
     public double dotX,dotY;
 
@@ -16,11 +16,14 @@ public class ResearchBase {
         this.id = id;
         //this.category = category;
         //this.name = name;
-        getCoordinate(id);
+        if(id < 10000) {
+            getCoordinate(id);
+            getFather(id);
+        }
     }
 
-    public ResearchBase setFatherResearch(int[] fatherResearch){
-        this.fatherResearch = fatherResearch;
+    public ResearchBase getFather(int id){
+        this.fatherResearch = ResearchUtils.father[id];
         return this;
     }
 
@@ -34,5 +37,11 @@ public class ResearchBase {
     private void getCoordinate(int id){
         this.dotX = ResearchUtils.coordX[id];
         this.dotY = ResearchUtils.coordY[id];
+    }
+
+    public ResearchBase setCoordinate(double[] coord){
+        this.dotX = coord[0];
+        this.dotY = coord[1];
+        return this;
     }
 }

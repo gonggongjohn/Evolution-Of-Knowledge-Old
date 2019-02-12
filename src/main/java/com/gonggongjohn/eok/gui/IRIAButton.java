@@ -16,23 +16,23 @@ import org.lwjgl.opengl.GL11;
 public class IRIAButton extends GuiButton {
     //是否为工具研究
     private boolean isUtil = false;
-    //起始研究
-    private ResearchBase rs;
-    //目标研究
-    private ResearchBase rt;
-    //工具研究
-    private ResearchBase ru;
-    //画何种贴图的标记
-    public int tag = 0;
+    private boolean isSource = true;
+    //代表研究
+    public ResearchBase containResearch;
+    //画何种贴图的标记(0起始，1工具，2中间(目标未完成)，3目标已完成)
+    public int status = 0;
     //目标研究是否已完成
     public int unlock = 0;
     //画按钮内含图像的标记
-    public int contain = 0;
+    public int containMark = -1;
     //private static Logger logger;
     //按钮贴图位置
     private ResourceLocation texture1 = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchImpAncient.png");
     //内含贴图位置
     private ResourceLocation texture2 = new ResourceLocation(EOK.MODID, "textures/gui/researchMark.png");
+    //上一个tick鼠标的X,Y坐标；是否为刚按下鼠标的那一tick
+    private int lastMouseX = 0, lastMouseY = 0, ftag = 0, offsetX, offsetY;
+    private boolean tag = false;
 
     //构造函数
     public IRIAButton(int p_i1021_1_, int p_i1021_2_, int p_i1021_3_, int p_i1021_4_, int p_i1021_5_, String p_i1021_6_) {
@@ -50,72 +50,96 @@ public class IRIAButton extends GuiButton {
             //加载按钮贴图
             mc.getTextureManager().bindTexture(texture1);
             //起始研究按钮画蓝色图标
-            if(tag == 0)
+            if(status == 0)
                 this.drawTexturedModalRect(this.xPosition, this.yPosition, 37, 220, this.width, this.height);
             //未完成研究按钮画灰色图标
-            if(tag == 1)
+            if(status == 2)
                 this.drawTexturedModalRect(this.xPosition, this.yPosition, 2, 220, this.width, this.height);
             //已完成研究按钮画金色图标
-            if(tag == 2)
+            if(status == 1 || status == 3)
                 this.drawTexturedModalRect(this.xPosition, this.yPosition, 72, 220, this.width, this.height);
             //加载内含贴图
             mc.getTextureManager().bindTexture(texture2);
             //起始研究内含贴图
-            if(contain == 0)
-                this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, 2, 2, 16, 16);
-            //工具研究内含贴图
-            if(contain == 1)
-               this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, 40, 2, 16, 16);
-            //目标研究内含贴图
-            if(contain == 2)
-                this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, 21, 2, 16, 16);
+            if(containMark != -1)
+                this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, 4 + containMark * 17, 3, 17, 17);
             //判断鼠标是否在按钮内
             int x = mouseX - this.xPosition, y = mouseY - this.yPosition;
             if (x >= 0 && y >= 0 && x < this.width && y < this.height){
                 //从lang文件中获取该研究的名称和描述
-                String name = I18n.format("research"+this.id+".name");
-                String description = I18n.format("research"+this.id+".description");
+                String name = I18n.format("research"+this.containMark+".name");
+                String description = I18n.format("research"+this.containMark+".description");
                 //在鼠标旁画出名称和描述文字
                 this.drawString(mc.fontRenderer, name, mouseX + 3, mouseY + 3, 0x404040);
                 this.drawString(mc.fontRenderer, description, mouseX + 3, mouseY + 15, 0x404040);
                 //是工具研究 & 鼠标左键按下
-                if(isUtil && Mouse.isButtonDown(0)){
-                    //算向量
-                    double[] vec = ResearchUtils.getVector(rs, ru);
-                    //logger.info(vec[0] + " "+ vec[1]);
-                    //算距离
-                    double dis = ResearchUtils.getDistance(rs, vec, rt);
-                    //logger.info(dis);
-                    //如果距离为0（即到达目标研究）
-                    if(dis == 0){
-                        //标记该研究已完成
-                        this.unlock = 1;
+                if(isUtil){
+                    if(Mouse.isButtonDown(0)) {
+                        //是否为刚按下鼠标的那一tick
+                        if (ftag == 0) {
+                            //鼠标坐标传递
+                            lastMouseX = mouseX;
+                            lastMouseY = mouseY;
+                            //设定为不是刚按下鼠标的那一tick
+                            ftag = 1;
+                        } else {
+                            //跟随鼠标移动按钮位置
+                            this.xPosition = this.xPosition + mouseX - lastMouseX;
+                            this.yPosition = this.yPosition + mouseY - lastMouseY;
+                        }
+                        //鼠标坐标传递
+                        lastMouseX = mouseX;
+                        lastMouseY = mouseY;
+                    }else ftag = 0;//鼠标抬起，标记归0
+                    if(this.xPosition >= offsetX + 144 && this.xPosition <= offsetX + 236 && this.yPosition >= offsetY + 15 && this.yPosition <=offsetY + 195){
+                        GUIResearchImpAncient.activeUtilInButtonList = this.id;
+                    }
+                }
+                if(isSource) {
+                    if (Mouse.isButtonDown(0)) {
+                        tag = true;
+                    }
+                    if (tag && !Mouse.isButtonDown(0)){
+                        GUIResearchImpAncient.activeSourceInButtonList = this.id;
                     }
                 }
             }
         }
     }
 
-    public IRIAButton setTag(int t){
-        this.tag = t;
+    public IRIAButton setStatus(int status){
+        this.status = status;
         return this;
     }
 
-    public IRIAButton setContain(int c){
-        this.contain = c;
+    public IRIAButton setContainMark(int markID){
+        this.containMark = markID;
         return this;
     }
 
-    public IRIAButton setUtil(ResearchBase rs, ResearchBase rt, ResearchBase ru){
+    public IRIAButton setUtil(ResearchBase utilResearch, int offsetX, int offsetY){
         this.isUtil = true;
-        this.rs = rs;
-        this.rt = rt;
-        this.ru = ru;
+        this.containResearch = utilResearch;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
         return this;
     }
 
-    public IRIAButton setUtil(){
+    public IRIAButton setStart(ResearchBase startResearch){
         this.isUtil = false;
+        this.isSource = true;
+        this.containResearch = startResearch;
+        return this;
+    }
+    public IRIAButton setTemp(ResearchBase tempResearch){
+        this.isUtil = false;
+        this.isSource = true;
+        this.containResearch = tempResearch;
+        return this;
+    }
+    public IRIAButton setTarget(ResearchBase targetResearch){
+        this.isUtil = false;
+        this.containResearch = targetResearch;
         return this;
     }
 }

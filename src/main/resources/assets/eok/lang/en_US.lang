@@ -12,4 +12,6 @@ research2.description=At the ancient time when human beings hadn't been civilize
 research999.name=Unfilled
 research999.description=Wait For Deduction...
 
+button.startResearch.name=Start Research
+
 itemGroup.eok=Evolution Of Knowledge

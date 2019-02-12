@@ -9,4 +9,6 @@ research1.description=这是你与生俱来就拥有的能力
 research2.name=文明的起源
 research2.description=在人类进入文明社会之前，人们已经开始尝试探索并运用自然的规律
 
+button.startResearch.name=开始研究
+
 itemGroup.eok= 从无知到先知

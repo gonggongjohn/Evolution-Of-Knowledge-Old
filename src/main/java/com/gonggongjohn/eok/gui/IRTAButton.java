@@ -33,7 +33,7 @@ public class IRTAButton extends GuiButton {
             int x = mouseX - this.xPosition, y = mouseY - this.yPosition;
             if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
                 //画高亮按钮贴图
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 35, 221, this.width, this.height);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 37, 220, this.width, this.height);
                 //从lang文件中获取该研究的名称和描述
                 String name = I18n.format("research"+this.id+".name");
                 String description = I18n.format("research"+this.id+".description");
@@ -47,7 +47,7 @@ public class IRTAButton extends GuiButton {
                 }
             } else {
                 //画正常按钮贴图
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 1, 221, this.width, this.height);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 2, 220, this.width, this.height);
                 //鼠标左键按下
                 if (Mouse.isButtonDown(0)) {
                     {

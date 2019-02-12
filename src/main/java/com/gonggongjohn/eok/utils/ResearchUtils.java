@@ -1,5 +1,8 @@
 package com.gonggongjohn.eok.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.Math.abs;
 
 public class ResearchUtils {
@@ -9,6 +12,8 @@ public class ResearchUtils {
     public static double coordX[] = new double[1000];
     //每个研究对应的纵坐标（抽象空间中）
     public static double coordY[] = new double[1000];
+    public static List<Integer> utilResearchesID = new ArrayList<Integer>();
+    public static int father[] = new int[1000];
 
     /*private static double abs(double x){
         return x >= 0.0? x: -x;
@@ -43,5 +48,10 @@ public class ResearchUtils {
         return new double[]{x, y};
     }
 
+    public static double getTime(ResearchBase startResearch, ResearchBase targetResearch){
+        double xs = startResearch.dotX,ys = startResearch.dotY,xt = targetResearch.dotX,yt = targetResearch.dotY;
+        double t = Math.sqrt((xs - xt) * (xs - xt) + (ys - yt) * (ys -yt));
+        return t * 10;
+    }
 
 }
