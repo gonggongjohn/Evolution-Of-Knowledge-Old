@@ -14,6 +14,7 @@ public class IRTAButton extends GuiButton {
     private ResourceLocation texture = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchTableAncient.png");
     //上一个tick鼠标的X,Y坐标；是否为刚按下鼠标的那一tick
     private int lastMouseX = 0, lastMouseY = 0, ftag = 0;
+    GUIResearchImpAncient subScreen;
 
     //构造函数
     public IRTAButton(int p_i1021_1_, int p_i1021_2_, int p_i1021_3_, int p_i1021_4_, int p_i1021_5_, String p_i1021_6_) {
@@ -43,7 +44,8 @@ public class IRTAButton extends GuiButton {
                 //判断鼠标左键是否按下
                 if(Mouse.isButtonDown(0)) {
                     //进入二级GUI
-                    mc.displayGuiScreen(new GUIResearchImpAncient(this.id));
+                    subScreen = new GUIResearchImpAncient(this.id);
+                    mc.displayGuiScreen(subScreen);
                 }
             } else {
                 //画正常按钮贴图
@@ -70,5 +72,9 @@ public class IRTAButton extends GuiButton {
                 } else ftag = 0;//鼠标抬起，标记归0
             }
         }
+        //if(subScreen != null){
+        //    if(subScreen.screenStatus == false)
+        //    this.subScreen = null;
+        //}
     }
 }

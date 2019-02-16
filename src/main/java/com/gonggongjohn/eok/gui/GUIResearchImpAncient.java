@@ -9,6 +9,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class GUIResearchImpAncient extends GuiScreen {
     private double dis;
     private double[] midCoord;
     private double prop;
+    //public boolean screenStatus = true;
 
 
     //构造函数
@@ -77,7 +79,8 @@ public class GUIResearchImpAncient extends GuiScreen {
         drawTexturedModalRect(offsetX + 18, offsetY + 20, 3, 9, 119, 5);
         //System.out.println(totalTime);
         //System.out.println(currentTime);
-        if(activeSourceInButtonList != -1 && activeUtilInButtonList != -1 && activeFlag){
+        //System.out.println(unlock);
+        if(activeSourceInButtonList != -1 && activeUtilInButtonList != -1 && activeFlag && !unlock){
             ((IStartResearchButton)this.buttonList.get(0)).enabled = false;
             if(this.totalTime == -1) {
                 ru = ((IRIAButton) this.buttonList.get(activeUtilInButtonList)).containResearch;
@@ -95,7 +98,7 @@ public class GUIResearchImpAncient extends GuiScreen {
                 }
                 this.currentTime = 0;
             }
-            if ((this.totalTime - this.currentTime) < (1 / 20)) {
+            if ((this.totalTime - this.currentTime) < (1.0 / 20.0)) {
                     if (dis == 0) {
                         this.unlock = true;
                         ((IRIAButton) this.buttonList.get(2)).status = 3;
@@ -160,4 +163,9 @@ public class GUIResearchImpAncient extends GuiScreen {
         return false;
     }
 
+    @Override
+    public void onGuiClosed(){
+        Keyboard.enableRepeatEvents(false);
+        //this.screenStatus = false;
+    }
 }
