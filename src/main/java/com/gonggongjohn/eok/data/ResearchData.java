@@ -16,13 +16,16 @@ public class ResearchData {
 
     public static void setup(){
         ResearchUtils.utilResearchesID.add(1);
+        ResearchUtils.utilResearchesID.add(3);
         setCoordinate(0,0,0);
         setCoordinate(1,1,0);
         setCoordinate(2,2,0);
-        setCoordinate(3,3,3);
+        setCoordinate(3,3,1);
+        setCoordinate(4,3,3);
         setFather(0,0);
         setFather(1,0);
         setFather(2,0);
-        setFather(3,2);
+        setFather(3,0);
+        setFather(4,2);
     }
 }

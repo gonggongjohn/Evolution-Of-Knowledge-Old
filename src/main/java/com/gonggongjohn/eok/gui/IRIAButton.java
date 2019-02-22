@@ -2,27 +2,19 @@ package com.gonggongjohn.eok.gui;
 
 import com.gonggongjohn.eok.EOK;
 import com.gonggongjohn.eok.utils.ResearchBase;
-import com.gonggongjohn.eok.utils.ResearchUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 //GUIResearchImpAncient中用到的按钮类（继承原GuiButton）
 public class IRIAButton extends GuiButton {
-    //是否为工具研究
-    private boolean isUtil = false;
     private boolean isSource = true;
     //代表研究
     public ResearchBase containResearch;
     //画何种贴图的标记(0起始，1工具，2中间(目标未完成)，3目标已完成)
     public int status = 0;
-    //目标研究是否已完成
-    public int unlock = 0;
     //画按钮内含图像的标记
     public int containMark = -1;
     //private static Logger logger;
@@ -30,14 +22,10 @@ public class IRIAButton extends GuiButton {
     private ResourceLocation texture1 = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchImpAncient.png");
     //内含贴图位置
     private ResourceLocation texture2 = new ResourceLocation(EOK.MODID, "textures/gui/researchMark.png");
-    //上一个tick鼠标的X,Y坐标；是否为刚按下鼠标的那一tick
-    private int lastMouseX = 0, lastMouseY = 0, ftag = 0, offsetX, offsetY;
-    private boolean tag = false;
 
     //构造函数
     public IRIAButton(int p_i1021_1_, int p_i1021_2_, int p_i1021_3_, int p_i1021_4_, int p_i1021_5_, String p_i1021_6_) {
         super(p_i1021_1_, p_i1021_2_, p_i1021_3_, p_i1021_4_, p_i1021_5_, p_i1021_6_);
-        //logger = LogManager.getLogger(EOK.MODID);
     }
 
     //画按钮（实时更新）
@@ -72,37 +60,6 @@ public class IRIAButton extends GuiButton {
                 //在鼠标旁画出名称和描述文字
                 this.drawString(mc.fontRenderer, name, mouseX + 3, mouseY + 3, 0x404040);
                 this.drawString(mc.fontRenderer, description, mouseX + 3, mouseY + 15, 0x404040);
-                //是工具研究 & 鼠标左键按下
-                if(isUtil){
-                    if(Mouse.isButtonDown(0)) {
-                        //是否为刚按下鼠标的那一tick
-                        if (ftag == 0) {
-                            //鼠标坐标传递
-                            lastMouseX = mouseX;
-                            lastMouseY = mouseY;
-                            //设定为不是刚按下鼠标的那一tick
-                            ftag = 1;
-                        } else {
-                            //跟随鼠标移动按钮位置
-                            this.xPosition = this.xPosition + mouseX - lastMouseX;
-                            this.yPosition = this.yPosition + mouseY - lastMouseY;
-                        }
-                        //鼠标坐标传递
-                        lastMouseX = mouseX;
-                        lastMouseY = mouseY;
-                    }else ftag = 0;//鼠标抬起，标记归0
-                    if(this.xPosition >= offsetX + 144 && this.xPosition <= offsetX + 236 && this.yPosition >= offsetY + 15 && this.yPosition <=offsetY + 195){
-                        GUIResearchImpAncient.activeUtilInButtonList = this.id;
-                    }
-                }
-                if(isSource) {
-                    if (Mouse.isButtonDown(0)) {
-                        tag = true;
-                    }
-                    if (tag && !Mouse.isButtonDown(0)){
-                        GUIResearchImpAncient.activeSourceInButtonList = this.id;
-                    }
-                }
             }
         }
     }
@@ -117,28 +74,18 @@ public class IRIAButton extends GuiButton {
         return this;
     }
 
-    public IRIAButton setUtil(ResearchBase utilResearch, int offsetX, int offsetY){
-        this.isUtil = true;
-        this.containResearch = utilResearch;
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
-        return this;
-    }
 
     public IRIAButton setStart(ResearchBase startResearch){
-        this.isUtil = false;
         this.isSource = true;
         this.containResearch = startResearch;
         return this;
     }
     public IRIAButton setTemp(ResearchBase tempResearch){
-        this.isUtil = false;
         this.isSource = true;
         this.containResearch = tempResearch;
         return this;
     }
     public IRIAButton setTarget(ResearchBase targetResearch){
-        this.isUtil = false;
         this.containResearch = targetResearch;
         return this;
     }

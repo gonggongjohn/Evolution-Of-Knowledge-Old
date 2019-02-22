@@ -42,9 +42,12 @@ public class ResearchUtils {
     //获取起点研究通过工具研究能够到达离目标研究的最近点
     public static double[] calcMidPoint(ResearchBase startResearch, double[] utilVector, ResearchBase targetResearch){
         double xs = startResearch.dotX,ys = startResearch.dotY,xt = targetResearch.dotX,yt = targetResearch.dotY;
-        double a = utilVector[0], b = utilVector[1];
-        double x = (a*a*xs + b*b*xt + a*b*(ys-yt)) / (a*a+b*b);
-        double y = (b*b*ys + a*a*yt + a*b*(xs-xt)) / (a*a+b*b);
+        double xu = utilVector[0], yu = utilVector[1];
+        double a = - yu, b = xu, c = yu * xs -xu * ys;
+        double x = (b*b*xt-a*b*yt-a*c)/(a*a+b*b);
+        double y = (a*a*yt-a*b*xt-b*c)/(a*a+b*b);
+        //double x = (a*a*xs + b*b*xt + a*b*(ys-yt)) / (a*a+b*b);
+        //double y = (b*b*ys + a*a*yt + a*b*(xs-xt)) / (a*a+b*b);
         return new double[]{x, y};
     }
 
