@@ -1,6 +1,7 @@
 package com.gonggongjohn.eok.gui;
 
 import com.gonggongjohn.eok.EOK;
+import com.gonggongjohn.eok.handlers.ProfileHandler;
 import com.gonggongjohn.eok.utils.ResearchBase;
 import com.gonggongjohn.eok.utils.ResearchUtils;
 import net.minecraft.client.Minecraft;
@@ -43,8 +44,9 @@ public class GUIResearchImpAncient extends GuiScreen {
 
 
     //构造函数
-    public GUIResearchImpAncient(int id) {
+    public GUIResearchImpAncient(int id,boolean isUnlock) {
         this.id = id;
+        this.unlock = isUnlock;
         //设置GUI大小
         this.xSize = 255;
         this.ySize = 210;
@@ -71,6 +73,8 @@ public class GUIResearchImpAncient extends GuiScreen {
                 if (dis == 0) {
                     this.unlock = true;
                     ((IRIAButton) this.buttonList.get(2)).status = 3;
+                    ResearchUtils.unlockedResearchID.add(this.id);
+                    ProfileHandler.recordProgress();
                 } else {
                     int btnID = this.buttonList.size();
                     int faPosX = ((IRIAButton) this.buttonList.get(activeSourceInButtonList)).xPosition;
@@ -115,7 +119,10 @@ public class GUIResearchImpAncient extends GuiScreen {
         for(int i = 0; i < utilNum; i++) {
             int utilID = ResearchUtils.utilResearchesID.get(i);
             ResearchBase utilResearch = new ResearchBase(utilID);
-            this.buttonList.add(new IRIAButton(3 + i, offsetX + 25, offsetY + (this.ySize / (utilNum + 1) * (i + 1)), 33, 33, "").setStatus(1).setContainMark(utilID));
+            this.buttonList.add(new IRIAButton(3 + i, offsetX + 25, offsetY + (this.ySize / (utilNum + 1) * (i + 1)), 33, 33, "").setStatus(1).setContainMark(utilID).setUtil(utilResearch));
+        }
+        if(unlock){
+            ((IRIAButton) this.buttonList.get(2)).status = 3;
         }
     }
 

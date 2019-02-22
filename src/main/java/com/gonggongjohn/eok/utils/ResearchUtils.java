@@ -14,6 +14,7 @@ public class ResearchUtils {
     public static double coordY[] = new double[1000];
     public static List<Integer> utilResearchesID = new ArrayList<Integer>();
     public static int father[] = new int[1000];
+    public static List<Integer> unlockedResearchID = new ArrayList<Integer>();
 
     /*private static double abs(double x){
         return x >= 0.0? x: -x;
