@@ -1,6 +1,7 @@
 package com.gonggongjohn.eok.gui;
 
 import com.gonggongjohn.eok.EOK;
+import com.gonggongjohn.eok.utils.ResearchUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
@@ -44,7 +45,7 @@ public class IRTAButton extends GuiButton {
                 //判断鼠标左键是否按下
                 if(Mouse.isButtonDown(0)) {
                     //进入二级GUI
-                    subScreen = new GUIResearchImpAncient(this.id);
+                    subScreen = new GUIResearchImpAncient(this.id, ResearchUtils.unlockedResearchID.contains(this.id));
                     mc.displayGuiScreen(subScreen);
                 }
             } else {

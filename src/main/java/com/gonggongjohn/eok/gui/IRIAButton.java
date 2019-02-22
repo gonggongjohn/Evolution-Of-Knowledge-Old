@@ -50,7 +50,7 @@ public class IRIAButton extends GuiButton {
             mc.getTextureManager().bindTexture(texture2);
             //起始研究内含贴图
             if(containMark != -1)
-                this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, 4 + containMark * 17, 3, 17, 17);
+                this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, containMark * 16, 0, 16, 16);
             //判断鼠标是否在按钮内
             int x = mouseX - this.xPosition, y = mouseY - this.yPosition;
             if (x >= 0 && y >= 0 && x < this.width && y < this.height){
@@ -87,6 +87,10 @@ public class IRIAButton extends GuiButton {
     }
     public IRIAButton setTarget(ResearchBase targetResearch){
         this.containResearch = targetResearch;
+        return this;
+    }
+    public IRIAButton setUtil(ResearchBase utilResearch){
+        this.containResearch = utilResearch;
         return this;
     }
 }

@@ -17,6 +17,7 @@ public class ResearchData {
     public static void setup(){
         ResearchUtils.utilResearchesID.add(1);
         ResearchUtils.utilResearchesID.add(3);
+        ResearchUtils.unlockedResearchID.add(1);
         setCoordinate(0,0,0);
         setCoordinate(1,1,0);
         setCoordinate(2,2,0);
