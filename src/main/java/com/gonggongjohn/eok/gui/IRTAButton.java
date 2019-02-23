@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class IRTAButton extends GuiButton {
     //贴图位置
     private ResourceLocation texture = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchTableAncient.png");
+    private ResourceLocation texture2 = new ResourceLocation(EOK.MODID, "textures/gui/researchMark.png");
     //上一个tick鼠标的X,Y坐标；是否为刚按下鼠标的那一tick
     private int lastMouseX = 0, lastMouseY = 0, ftag = 0;
     GUIResearchImpAncient subScreen;
@@ -59,6 +60,8 @@ public class IRTAButton extends GuiButton {
                     this.visible = true;
                     //画高亮按钮贴图
                     this.drawTexturedModalRect(this.xPosition, this.yPosition, 37, 220, this.width, this.height);
+                    mc.getTextureManager().bindTexture(texture2);
+                    this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, id * 16, 0, 16, 16);
                 }
                 if(etag) {
                     //从lang文件中获取该研究的名称和描述
@@ -94,6 +97,8 @@ public class IRTAButton extends GuiButton {
                     this.visible = true;
                     //画正常按钮贴图
                     this.drawTexturedModalRect(this.xPosition, this.yPosition, 2, 220, this.width, this.height);
+                    mc.getTextureManager().bindTexture(texture2);
+                    this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, id * 16, 0, 16, 16);
                 }
                 //鼠标左键按下
                 if (Mouse.isButtonDown(0)) {

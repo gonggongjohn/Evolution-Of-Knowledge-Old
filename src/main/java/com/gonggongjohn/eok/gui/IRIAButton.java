@@ -38,25 +38,35 @@ public class IRIAButton extends GuiButton {
             //加载按钮贴图
             mc.getTextureManager().bindTexture(texture1);
             //起始研究按钮画蓝色图标
-            if(status == 0)
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 37, 220, this.width, this.height);
-            //未完成研究按钮画灰色图标
-            if(status == 2)
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 2, 220, this.width, this.height);
-            //已完成研究按钮画金色图标
-            if(status == 1 || status == 3)
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 72, 220, this.width, this.height);
+            switch (status){
+                case 0:this.drawTexturedModalRect(this.xPosition, this.yPosition, 32, 224, this.width, this.height);break;
+                case 1:this.drawTexturedModalRect(this.xPosition, this.yPosition, 64, 224, this.width, this.height);break;
+                case 2:this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 224, this.width, this.height);break;
+                case 3:this.drawTexturedModalRect(this.xPosition, this.yPosition, 64, 224, this.width, this.height);break;
+                case 4:this.drawTexturedModalRect(this.xPosition, this.yPosition, 96, 224, this.width, this.height);break;
+                case 5:this.drawTexturedModalRect(this.xPosition, this.yPosition, 128, 224, this.width, this.height);break;
+                case 6:this.drawTexturedModalRect(this.xPosition, this.yPosition, 160, 224, this.width, this.height);break;
+                default:break;
+            }
             //加载内含贴图
             mc.getTextureManager().bindTexture(texture2);
             //起始研究内含贴图
-            if(containMark != -1)
+            if(containMark != -1 && containMark < 1000)
                 this.drawTexturedModalRect(this.xPosition + this.width / 2 - 8, this.yPosition + this.height / 2 - 8, containMark * 16, 0, 16, 16);
             //判断鼠标是否在按钮内
             int x = mouseX - this.xPosition, y = mouseY - this.yPosition;
             if (x >= 0 && y >= 0 && x < this.width && y < this.height){
-                //从lang文件中获取该研究的名称和描述
-                String name = I18n.format("research"+this.containMark+".name");
-                String description = I18n.format("research"+this.containMark+".description");
+                String name;
+                String description;
+                if(containMark < 1000) {
+                    //从lang文件中获取该研究的名称和描述
+                    name = I18n.format("research" + this.containMark + ".name");
+                    description = I18n.format("research" + this.containMark + ".description");
+                }
+                else{
+                    name = I18n.format("researchTemp.name");
+                    description = I18n.format("researchTemp.description");
+                }
                 //在鼠标旁画出名称和描述文字
                 this.drawString(mc.fontRenderer, name, mouseX + 3, mouseY + 3, 0x404040);
                 this.drawString(mc.fontRenderer, description, mouseX + 3, mouseY + 15, 0x404040);

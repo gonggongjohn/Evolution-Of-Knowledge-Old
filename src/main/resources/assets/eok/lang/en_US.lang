@@ -8,9 +8,25 @@ research1.name=Observational Method
 research1.description=Observational Method Is The Ability You Were Born With.
 research2.name=The Origin Of Science
 research2.description=At the ancient time when human beings hadn't been civilized, people tried to discover and utilize the law of nature...
+research3.name=Objective Model Method
+research3.description=
+research4.name=Ideal Model Method
+research4.description=
+research5.name=Experiment Method
+research5.description=
+research6.name=Conservation of fire
+research6.description=
+research7.name=Alchemy
+research7.description=
+research8.name=
+research8.description=
+research9.name=
+research9.description=
+research10.name=
+research10.description=
 
-research999.name=Unfilled
-research999.description=Wait For Deduction...
+researchTemp.name=Unfilled
+researchTemp.description=Wait For Deduction...
 
 button.startResearch.name=Start Research
 

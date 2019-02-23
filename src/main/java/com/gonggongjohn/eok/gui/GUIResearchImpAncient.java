@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 public class GUIResearchImpAncient extends GuiScreen {
     //贴图位置
     private ResourceLocation texture = new ResourceLocation(EOK.MODID, "textures/gui/guiResearchImpAncient.png");
-    private ResourceLocation texturePB = new ResourceLocation(EOK.MODID, "textures/gui/progressBar.png");
+    private ResourceLocation textureCP = new ResourceLocation(EOK.MODID, "textures/gui/components.png");
     //研究编号
     private int id;
     //GUI大小
@@ -33,7 +33,7 @@ public class GUIResearchImpAncient extends GuiScreen {
     private int midPointCount = 0;
     private boolean unlock = false;
     private int offsetX, offsetY;
-    private int utilNum;
+    private int utilNum,avaUtilNum = 0;
     private double totalTime = -1;
     private double currentTime = -5;
     private ResearchBase ru,rs,tempResearch;
@@ -66,8 +66,8 @@ public class GUIResearchImpAncient extends GuiScreen {
         //画GUI背景（参数ctrl+左键点进去看）
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
         //加载贴图
-        Minecraft.getMinecraft().renderEngine.bindTexture(texturePB);
-        drawTexturedModalRect(offsetX + 18, offsetY + 20, 3, 9, 119, 5);
+        Minecraft.getMinecraft().renderEngine.bindTexture(textureCP);
+        drawTexturedModalRect(offsetX + 18, offsetY + 20, 0, 4, 118, 3);
         if(activeFlag) {
             if ((this.totalTime - this.currentTime) < (1.0 / 20.0)) {
                 if (dis == 0) {
@@ -79,8 +79,10 @@ public class GUIResearchImpAncient extends GuiScreen {
                     int btnID = this.buttonList.size();
                     int faPosX = ((IRIAButton) this.buttonList.get(activeSourceInButtonList)).xPosition;
                     int faPosY = ((IRIAButton) this.buttonList.get(activeSourceInButtonList)).yPosition;
-                    this.buttonList.add(new IRIAButton(btnID, faPosX + 36, faPosY + 36, 33, 33, "").setTemp(tempResearch).setStatus(2));
+                    this.buttonList.add(new IRIAButton(btnID, faPosX + 36, faPosY + 36, 32, 32, "").setTemp(tempResearch).setStatus(2).setContainMark(9999 + this.midPointCount));
                 }
+                ((IRIAButton) buttonList.get(activeUtilInButtonList)).status = 3;
+                ((IRIAButton) buttonList.get(activeSourceInButtonList)).status = (activeSourceInButtonList == 1) ? 0 : 2;
                 activeFlag = false;
                 activeSourceInButtonList = -1;
                 activeUtilInButtonList = -1;
@@ -89,7 +91,7 @@ public class GUIResearchImpAncient extends GuiScreen {
             } else {
                 this.currentTime = this.currentTime + 1.0 / 20.0;
                 prop = this.currentTime / this.totalTime;
-                drawTexturedModalRect(offsetX + 18, offsetY + 20, 3, 3, (int) (prop * 119), 5);
+                drawTexturedModalRect(offsetX + 18, offsetY + 20, 0, 0, (int) (prop * 118), 3);
             }
         }
         super.drawScreen(par1, par2, par3);
@@ -112,14 +114,17 @@ public class GUIResearchImpAncient extends GuiScreen {
         //添加按钮（“开始研究”字样）
         this.buttonList.add(new IStartResearchButton(0, offsetX + 42, offsetY + 165, 63, 15, ""));
         //添加按钮（起始研究）
-        this.buttonList.add(new IRIAButton(1, offsetX + 150, offsetY + 22, 33, 33, "").setStatus(0).setContainMark(this.fatherID).setStart(fatherResearch));
+        this.buttonList.add(new IRIAButton(1, offsetX + 150, offsetY + 22, 32, 32, "").setStatus(0).setContainMark(this.fatherID).setStart(fatherResearch));
         //添加按钮（目标研究）
-        this.buttonList.add(new IRIAButton(2, offsetX + 200, offsetY + 160, 33, 33, "").setStatus(2).setContainMark(this.id).setTarget(targetResearch));
+        this.buttonList.add(new IRIAButton(2, offsetX + 200, offsetY + 160, 32, 32, "").setStatus(2).setContainMark(this.id).setTarget(targetResearch));
         //添加按钮（工具研究）
         for(int i = 0; i < utilNum; i++) {
             int utilID = ResearchUtils.utilResearchesID.get(i);
-            ResearchBase utilResearch = new ResearchBase(utilID);
-            this.buttonList.add(new IRIAButton(3 + i, offsetX + 25, offsetY + (this.ySize / (utilNum + 1) * (i + 1)), 33, 33, "").setStatus(1).setContainMark(utilID).setUtil(utilResearch));
+            if(ResearchUtils.unlockedResearchID.contains(utilID)) {
+                ResearchBase utilResearch = new ResearchBase(utilID);
+                this.buttonList.add(new IRIAButton(3 + avaUtilNum, offsetX + 25, offsetY + (this.ySize / (utilNum + 1) * (i + 1)), 32, 32, "").setStatus(1).setContainMark(utilID).setUtil(utilResearch));
+                avaUtilNum ++;
+            }
         }
         if(unlock){
             ((IRIAButton) this.buttonList.get(2)).status = 3;
@@ -140,10 +145,18 @@ public class GUIResearchImpAncient extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button){
         if(button.id >= 3 && button.id <= (2+utilNum)){
+            if(activeUtilInButtonList !=-1) {
+                ((IRIAButton) buttonList.get(activeUtilInButtonList)).status = 3;
+            }
             activeUtilInButtonList = button.id;
+            ((IRIAButton)buttonList.get(button.id)).status = 6;
         }
-        if(button.id == 1 || button.id > (2+utilNum)){
+        if(button.id == 1 || button.id > (2+avaUtilNum)){
+            if(activeSourceInButtonList !=-1) {
+                ((IRIAButton) buttonList.get(activeSourceInButtonList)).status = (activeSourceInButtonList == 1) ? 0 : 2;
+            }
             activeSourceInButtonList = button.id;
+            ((IRIAButton)buttonList.get(button.id)).status = (button.id == 1) ? 5 : 4;
         }
         if(button.id == 0 && activeSourceInButtonList != -1 && activeUtilInButtonList != -1){
             ru = ((IRIAButton) this.buttonList.get(activeUtilInButtonList)).containResearch;

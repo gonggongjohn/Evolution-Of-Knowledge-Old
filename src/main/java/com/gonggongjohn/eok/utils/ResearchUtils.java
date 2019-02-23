@@ -22,9 +22,9 @@ public class ResearchUtils {
 
     //获取起点研究到工具研究的向量值
     public static double[] getVector(ResearchBase startResearch, ResearchBase targetResearch){
-        double x = targetResearch.dotX - startResearch.dotX;
-        double y = targetResearch.dotY - startResearch.dotY;
-        return new double[]{x, y};
+        //double x = targetResearch.dotX - startResearch.dotX;
+        //double y = targetResearch.dotY - startResearch.dotY;
+        return new double[]{targetResearch.dotX, targetResearch.dotY};
     }
 
     //获取起点研究通过工具研究能够到达离目标研究的最近距离（距离为0即为可直接到达目标研究）

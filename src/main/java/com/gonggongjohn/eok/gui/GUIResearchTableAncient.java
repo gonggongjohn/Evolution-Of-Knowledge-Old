@@ -59,8 +59,9 @@ public class GUIResearchTableAncient extends GuiContainer{
         //参考系计算（从以窗口为参考系变成以GUI背景贴图为参考系）
         int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
         //添加任务按钮（参数ctrl+左键点进去看）
-        for(int i = 2; i <= ResearchUtils.researchCount; i++) {
-        this.buttonList.add(new IRTAButton(i, offsetX + 20 + (i - 2) % 4 * 50, offsetY + 25  + (i - 1) / 5 * 46, 36, 36, "").setOffset(offsetX, offsetY, this.xSize, this.ySize));
+        this.buttonList.add(new IRTAButton(2, offsetX + 20, offsetY + 25, 36, 36, "").setOffset(offsetX, offsetY, this.xSize, this.ySize));
+        for(int i = 4; i <= ResearchUtils.researchCount; i++) {
+        this.buttonList.add(new IRTAButton(i, offsetX + 20 + (i - 3) % 4 * 50, offsetY + 25  + (i - 2) / 5 * 46, 36, 36, "").setOffset(offsetX, offsetY, this.xSize, this.ySize));
         }
     }
 }
