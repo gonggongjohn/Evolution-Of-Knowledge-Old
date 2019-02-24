@@ -68,11 +68,17 @@ public class GUIResearchImpAncient extends GuiScreen {
         //加载贴图
         Minecraft.getMinecraft().renderEngine.bindTexture(textureCP);
         drawTexturedModalRect(offsetX + 18, offsetY + 20, 0, 4, 118, 3);
+        drawTexturedModalRect(offsetX + 118, offsetY + 40, 0, 24, 8, 128);
+        if(((ISliderButton)this.buttonList.get(1)).umtag != 0){
+            for(int i=4;i<=3 + avaUtilNum;i++){
+                ((IRIAButton) buttonList.get(i)).yPosition = ((IRIAButton) buttonList.get(i)).yPosition + ((ISliderButton)this.buttonList.get(1)).umtag;
+            }
+        }
         if(activeFlag) {
             if ((this.totalTime - this.currentTime) < (1.0 / 20.0)) {
                 if (dis == 0) {
                     this.unlock = true;
-                    ((IRIAButton) this.buttonList.get(2)).status = 3;
+                    ((IRIAButton) this.buttonList.get(3)).status = 3;
                     ResearchUtils.unlockedResearchID.add(this.id);
                     ProfileHandler.recordProgress();
                 } else {
@@ -82,7 +88,7 @@ public class GUIResearchImpAncient extends GuiScreen {
                     this.buttonList.add(new IRIAButton(btnID, faPosX + 36, faPosY + 36, 32, 32, "").setTemp(tempResearch).setStatus(2).setContainMark(9999 + this.midPointCount));
                 }
                 ((IRIAButton) buttonList.get(activeUtilInButtonList)).status = 3;
-                ((IRIAButton) buttonList.get(activeSourceInButtonList)).status = (activeSourceInButtonList == 1) ? 0 : 2;
+                ((IRIAButton) buttonList.get(activeSourceInButtonList)).status = (activeSourceInButtonList == 2) ? 0 : 2;
                 activeFlag = false;
                 activeSourceInButtonList = -1;
                 activeUtilInButtonList = -1;
@@ -113,16 +119,17 @@ public class GUIResearchImpAncient extends GuiScreen {
         offsetY = (this.height - this.ySize) / 2;
         //添加按钮（“开始研究”字样）
         this.buttonList.add(new IStartResearchButton(0, offsetX + 42, offsetY + 165, 63, 15, ""));
+        this.buttonList.add(new ISliderButton(1, offsetX +118, offsetY + 40, 8, 11, "").setOffset(offsetX, offsetY, this.width, this.height));
         //添加按钮（起始研究）
-        this.buttonList.add(new IRIAButton(1, offsetX + 150, offsetY + 22, 32, 32, "").setStatus(0).setContainMark(this.fatherID).setStart(fatherResearch));
+        this.buttonList.add(new IRIAButton(2, offsetX + 150, offsetY + 22, 32, 32, "").setStatus(0).setContainMark(this.fatherID).setStart(fatherResearch));
         //添加按钮（目标研究）
-        this.buttonList.add(new IRIAButton(2, offsetX + 200, offsetY + 160, 32, 32, "").setStatus(2).setContainMark(this.id).setTarget(targetResearch));
+        this.buttonList.add(new IRIAButton(3, offsetX + 200, offsetY + 160, 32, 32, "").setStatus(2).setContainMark(this.id).setTarget(targetResearch));
         //添加按钮（工具研究）
         for(int i = 0; i < utilNum; i++) {
             int utilID = ResearchUtils.utilResearchesID.get(i);
             if(ResearchUtils.unlockedResearchID.contains(utilID)) {
                 ResearchBase utilResearch = new ResearchBase(utilID);
-                this.buttonList.add(new IRIAButton(3 + avaUtilNum, offsetX + 25, offsetY + (this.ySize / (utilNum + 1) * (i + 1)), 32, 32, "").setStatus(1).setContainMark(utilID).setUtil(utilResearch));
+                this.buttonList.add(new IRIAButton(4 + avaUtilNum, offsetX + 25, offsetY + (this.ySize / (utilNum + 1) * (i + 1)), 32, 32, "").setStatus(1).setContainMark(utilID).setUtil(utilResearch));
                 avaUtilNum ++;
             }
         }
@@ -144,19 +151,19 @@ public class GUIResearchImpAncient extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton button){
-        if(button.id >= 3 && button.id <= (2+utilNum)){
+        if(button.id >= 4 && button.id <= (3+avaUtilNum)){
             if(activeUtilInButtonList !=-1) {
                 ((IRIAButton) buttonList.get(activeUtilInButtonList)).status = 3;
             }
             activeUtilInButtonList = button.id;
             ((IRIAButton)buttonList.get(button.id)).status = 6;
         }
-        if(button.id == 1 || button.id > (2+avaUtilNum)){
+        if(button.id == 2 || button.id > (3+avaUtilNum)){
             if(activeSourceInButtonList !=-1) {
-                ((IRIAButton) buttonList.get(activeSourceInButtonList)).status = (activeSourceInButtonList == 1) ? 0 : 2;
+                ((IRIAButton) buttonList.get(activeSourceInButtonList)).status = (activeSourceInButtonList == 2) ? 0 : 2;
             }
             activeSourceInButtonList = button.id;
-            ((IRIAButton)buttonList.get(button.id)).status = (button.id == 1) ? 5 : 4;
+            ((IRIAButton)buttonList.get(button.id)).status = (button.id == 2) ? 5 : 4;
         }
         if(button.id == 0 && activeSourceInButtonList != -1 && activeUtilInButtonList != -1){
             ru = ((IRIAButton) this.buttonList.get(activeUtilInButtonList)).containResearch;
