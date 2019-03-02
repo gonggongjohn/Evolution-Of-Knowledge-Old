@@ -2,6 +2,7 @@ package com.gonggongjohn.eok;
 
 import com.gonggongjohn.eok.data.BlockProperties;
 import com.gonggongjohn.eok.data.ResearchData;
+import com.gonggongjohn.eok.data.TreeTweaker;
 import com.gonggongjohn.eok.handlers.*;
 
 import cpw.mods.fml.common.Mod;
@@ -43,6 +44,7 @@ public class EOK{
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
+        new TreeTweaker();
     }
 
     @Mod.EventHandler
