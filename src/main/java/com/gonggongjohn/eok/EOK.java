@@ -44,7 +44,7 @@ public class EOK{
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
-        new TreeTweaker();
+        EventHandler.registerEvent();
     }
 
     @Mod.EventHandler
