@@ -2,6 +2,10 @@ item.eokSymbol.name=EOK测试物品
 
 tile.researchTableAncient.name=原始研究台
 
+button.screenBrowse.title=浏览
+button.screenResearch.title=研究
+button.startResearch.title=开始研究
+
 research0.name=原始世界
 research0.description=这是人类文明尚未产生的时代。在这里，只有杀戮与黑暗……
 research1.name=观察法

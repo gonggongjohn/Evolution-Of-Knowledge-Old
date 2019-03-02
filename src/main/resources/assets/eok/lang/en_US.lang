@@ -2,6 +2,10 @@ item.eokSymbol.name=Symbol Of EOK
 
 tile.researchTableAncient.name=Ancient Research Table
 
+button.screenBrowse.title=Browse
+button.screenResearch.title=Research
+button.startResearch.title=Start Research
+
 research0.name=Original World
 research0.description=This Is When People Had Not Been Civilized Yet...
 research1.name=Observational Method
