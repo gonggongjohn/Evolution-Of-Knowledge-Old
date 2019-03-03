@@ -3,7 +3,6 @@ package com.gonggongjohn.eok.gui;
 import com.gonggongjohn.eok.EOK;
 import com.gonggongjohn.eok.containers.ContainerResearchTableAncient;
 import com.gonggongjohn.eok.tileEntities.TEResearchTableAncient;
-import com.gonggongjohn.eok.utils.ResearchUtils;
 import cpw.mods.fml.client.GuiScrollingList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -15,7 +14,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
@@ -29,7 +27,7 @@ public class GUIResearchTableAncient extends GuiContainer{
     private InventoryPlayer inventory;
     private TEResearchTableAncient te;
     private static Logger logger;
-    private int screenPage;
+    private int screenPage,initag;
     private GuiScrollingList scrollingList;
 
     public GUIResearchTableAncient(TEResearchTableAncient te, EntityPlayer player) {
@@ -51,12 +49,14 @@ public class GUIResearchTableAncient extends GuiContainer{
         Minecraft.getMinecraft().renderEngine.bindTexture(backTextureR);
         drawTexturedModalRect(x + xSize / 2, y, 20, 0, xSize / 2, ySize);
         if(screenPage == 1){
+            if(initag == 0) {
+                initResearchScreen();
+                initag = 1;
+            }
             scrollingList.drawScreen(par2, par3, par1);
             Minecraft.getMinecraft().renderEngine.bindTexture(paperTexture);
-            drawTexturedModalRect(x + 170, y + 10, 0, 0, 180, 180);
+            drawTexturedModalRect(x + 175, y + 10, 0, 0, 180, 180);
         }
-        //Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
-        //drawTexturedModalRect(x + 160, y + 25, 0, 24, 8, 128);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class GUIResearchTableAncient extends GuiContainer{
     public void initGui(){
         super.initGui();
         Random rand = new Random();
-        paperTexture = new ResourceLocation(EOK.MODID, "textures/gui/paper_" + rand.nextInt(5) + ".png");
+        paperTexture = new ResourceLocation(EOK.MODID, "textures/gui/paper_" + (rand.nextInt(4) + 1) + ".png");
         offsetX = (this.width - this.xSize) / 2;
         offsetY = (this.height - this.ySize) / 2;
         this.buttonList.add(new GuiButton(0, offsetX - 48, offsetY, 48, 16, ""){
@@ -101,7 +101,7 @@ public class GUIResearchTableAncient extends GuiContainer{
         }
         if(button.id == 1){
             screenPage = 1;
-            initResearchScreen();
+            initag = 0;
         }
     }
 
@@ -116,31 +116,18 @@ public class GUIResearchTableAncient extends GuiContainer{
                 this.drawString(mc.fontRenderer, title, this.xPosition + (this.width - mc.fontRenderer.getStringWidth(title)) / 2, this.yPosition + 4, 0x404040);
             }
         });
-        scrollingList = new GuiScrollingList(mc, 160, 10, offsetY + 18, offsetY + 170, offsetX + 14, 30) {
-            @Override
-            protected int getSize() {
-                return 20;
-            }
-
-            @Override
-            protected void elementClicked(int index, boolean doubleClick) {
-
-            }
-
-            @Override
-            protected boolean isSelected(int index) {
-                return false;
-            }
-
-            @Override
-            protected void drawBackground() {
-            }
-
+        scrollingList = new IScrollingList(mc, 160, 10, offsetY + 18, offsetY + 170, offsetX + 14, 30, 20) {
             @Override
             protected void drawSlot(int index, int var2, int var3, int var4, Tessellator var5) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
-                drawTexturedModalRect(this.left + 20, var3, 16, 32, 22, 22);
+                drawTexturedModalRect(this.left + 20 + (index % 4) * 30, var3, 16, 32, 22, 22);
                 //drawString(mc.fontRenderer, "" + index, this.left + 3, var3 + 2, 0x404040);
+            }
+
+            @Override
+            protected void drawChosen(int index, int var19){
+                Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
+                drawTexturedModalRect(this.left + 20 + (index % 4) * 30, var19, 16, 58, 22, 22);
             }
         };
         scrollingList.registerScrollButtons(buttonList, 3, 4);
