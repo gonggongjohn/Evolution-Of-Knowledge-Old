@@ -208,23 +208,6 @@ public class IScrollingList extends GuiScrollingList {
                 if (this.field_25123_p && this.isSelected(var11))
                 {
                     this.drawChosen(var11, var19);
-                    //var14 = boxLeft;
-                    //int var15 = boxRight;
-                    //GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                    //GL11.glDisable(GL11.GL_TEXTURE_2D);
-                    //var18.startDrawingQuads();
-                    //var18.setColorOpaque_I(8421504);
-                    //var18.addVertexWithUV((double)var14, (double)(var19 + var13 + 2), 0.0D, 0.0D, 1.0D);
-                    //var18.addVertexWithUV((double)var15, (double)(var19 + var13 + 2), 0.0D, 1.0D, 1.0D);
-                    //var18.addVertexWithUV((double)var15, (double)(var19 - 2), 0.0D, 1.0D, 0.0D);
-                    //var18.addVertexWithUV((double)var14, (double)(var19 - 2), 0.0D, 0.0D, 0.0D);
-                    //var18.setColorOpaque_I(0);
-                    //var18.addVertexWithUV((double)(var14 + 1), (double)(var19 + var13 + 1), 0.0D, 0.0D, 1.0D);
-                    //var18.addVertexWithUV((double)(var15 - 1), (double)(var19 + var13 + 1), 0.0D, 1.0D, 1.0D);
-                    //var18.addVertexWithUV((double)(var15 - 1), (double)(var19 - 1), 0.0D, 1.0D, 0.0D);
-                    //var18.addVertexWithUV((double)(var14 + 1), (double)(var19 - 1), 0.0D, 0.0D, 0.0D);
-                    //var18.draw();
-                    //GL11.glEnable(GL11.GL_TEXTURE_2D);
                 }
             }
         }
@@ -308,6 +291,14 @@ public class IScrollingList extends GuiScrollingList {
         GL11.glShadeModel(GL11.GL_FLAT);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glDisable(GL11.GL_BLEND);
+        if (mouseY >= this.top && mouseY <= this.bottom && mouseX >=this.left && mouseX <= this.right){
+            var10 = mouseY - this.top - this.field_27261_r + (int)this.scrollDistance - 4;
+            var30 = mouseX - this.left - 20;
+            var22 = var10 / this.slotHeight;
+            var21 = var30 / 30;
+            var11 = var22 * 4 + var21;
+            drawInfo(mouseX, mouseY, var11);
+        }
     }
 
     private void overlayBackground(int p_22239_1_, int p_22239_2_, int p_22239_3_, int p_22239_4_)
@@ -352,6 +343,10 @@ public class IScrollingList extends GuiScrollingList {
     }
 
     protected void drawChosen(int index, int var19){
+
+    }
+
+    protected void drawInfo(int mouseX, int mouseY, int index){
 
     }
 }

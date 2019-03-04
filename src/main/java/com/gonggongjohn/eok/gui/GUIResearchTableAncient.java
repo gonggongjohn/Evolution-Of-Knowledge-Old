@@ -97,7 +97,7 @@ public class GUIResearchTableAncient extends GuiContainer{
     protected void actionPerformed(GuiButton button){
         if(button.id == 0){
             screenPage = 0;
-            buttonList.remove(2);
+            if(buttonList.size() >= 3) buttonList.remove(2);
         }
         if(button.id == 1){
             screenPage = 1;
@@ -122,6 +122,14 @@ public class GUIResearchTableAncient extends GuiContainer{
                 Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
                 drawTexturedModalRect(this.left + 20 + (index % 4) * 30, var3, 16, 32, 22, 22);
                 //drawString(mc.fontRenderer, "" + index, this.left + 3, var3 + 2, 0x404040);
+            }
+
+            @Override
+            protected void drawInfo(int mouseX, int mouseY, int index){
+                String name = I18n.format("research" + index + ".name");
+                String description = I18n.format("research" + index + ".description");
+                drawString(mc.fontRenderer,  name, mouseX + 5, mouseY + 5, 0x404040);
+                drawString(mc.fontRenderer,  description, mouseX + 5, mouseY + 14, 0x404040);
             }
 
             @Override
