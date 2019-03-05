@@ -29,6 +29,7 @@ public class GUIResearchTableAncient extends GuiContainer{
     private static Logger logger;
     private int screenPage,initag;
     private GuiScrollingList scrollingList;
+    private int selectedIndex = -1;
 
     public GUIResearchTableAncient(TEResearchTableAncient te, EntityPlayer player) {
         super(new ContainerResearchTableAncient(te, player));
@@ -136,6 +137,11 @@ public class GUIResearchTableAncient extends GuiContainer{
             protected void drawChosen(int index, int var19){
                 Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
                 drawTexturedModalRect(this.left + 20 + (index % 4) * 30, var19, 16, 58, 22, 22);
+            }
+
+            @Override
+            protected void elementClicked(int index, boolean doubleClick){
+                selectedIndex = index;
             }
         };
         scrollingList.registerScrollButtons(buttonList, 3, 4);

@@ -33,7 +33,7 @@ public class EOK{
         ItemHandler.registerItem();
         BlockHandler.setupBlock();
         BlockHandler.registerBlock();
-        ResearchData.setup();
+        ResearchData.initRsearch();
         TileEntityHandler.registerTileEntities();
         BlockProperties.tweak();
         NetworkRegistry.INSTANCE.registerGuiHandler(EOK.instance, new GuiHandler());

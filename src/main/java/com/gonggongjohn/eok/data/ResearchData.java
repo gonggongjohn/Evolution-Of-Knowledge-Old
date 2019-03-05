@@ -1,27 +1,33 @@
 package com.gonggongjohn.eok.data;
 
-import com.gonggongjohn.eok.utils.ResearchUtils;
+import java.util.ArrayList;
 
 public class ResearchData {
-    private static void setFather(int id, int fatherID){
-        ResearchUtils.father[id] = fatherID;
+    public static ArrayList<ArrayList<Integer>> researchFathers = new ArrayList<ArrayList<Integer>>();
+    public static ArrayList<Integer> utilResearches = new ArrayList<>();
+
+    public static void setFathers(int researchID, int fatherID){
+        if(researchFathers.size() -1 <= researchID){
+            ArrayList<Integer> father = new ArrayList<Integer>();
+            father.add(fatherID);
+            researchFathers.add(father);
+        }
+        else{
+            ArrayList<Integer> father = researchFathers.get(researchID);
+            father.add(fatherID);
+            researchFathers.add(researchID, father);
+        }
     }
 
-    public static void setup(){
-        ResearchUtils.utilResearchesID.add(1);
-        ResearchUtils.utilResearchesID.add(3);
-        ResearchUtils.utilResearchesID.add(4);
-        ResearchUtils.utilResearchesID.add(5);
-        ResearchUtils.unlockedResearchID.add(0);
-        ResearchUtils.unlockedResearchID.add(1);
-        ResearchUtils.unlockedResearchID.add(3);
-        setFather(0,0);
-        setFather(1,0);
-        setFather(2,0);
-        setFather(3,1);
-        setFather(4,3);
-        setFather(5,3);
-        setFather(6,5);
-        setFather(7,6);
+    public static void setUtil(int id){
+        utilResearches.add(id);
     }
+
+    public static void initRsearch(){
+        setFathers(0, 0);
+        setFathers(1, 0);
+        setFathers(2, 1);
+        setUtil(1);
+    }
+
 }

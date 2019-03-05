@@ -18,7 +18,7 @@ public class ProfileHandler {
         FMLCommonHandler.instance().bus().register(this);
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event){
         playerName = event.player.getGameProfile().getName();
         File profile = new File(rootDir + "//EOK//" + playerName + ".erec");
@@ -53,5 +53,5 @@ public class ProfileHandler {
         } catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 }
