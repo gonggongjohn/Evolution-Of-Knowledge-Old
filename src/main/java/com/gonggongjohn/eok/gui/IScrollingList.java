@@ -18,7 +18,7 @@ public class IScrollingList extends GuiScrollingList {
     private long lastClickTime = 0L;
     private boolean field_25123_p = true;
     private boolean field_27262_q;
-    private int size;
+    public int size;
 
     public IScrollingList(Minecraft client, int width, int height, int top, int bottom, int left, int entryHeight, int size) {
         super(client, width, height, top, bottom, left, entryHeight);
