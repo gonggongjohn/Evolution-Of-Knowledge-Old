@@ -5,11 +5,9 @@ import com.gonggongjohn.eok.containers.ContainerResearchTableAncient;
 import com.gonggongjohn.eok.data.ResearchData;
 import com.gonggongjohn.eok.tileEntities.TEResearchTableAncient;
 import com.gonggongjohn.eok.utils.ResearchUtils;
-import cpw.mods.fml.client.GuiScrollingList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -33,7 +31,7 @@ public class GUIResearchTableAncient extends GuiContainer{
     private TEResearchTableAncient te;
     private static Logger logger;
     private int screenPage,initag;
-    private GuiScrollingList scrollingList;
+    private IResearchSelector selector;
     private int selectedIndex = -1;
     private int onPaperResearchCount = 2;
     private boolean isButtonCreated = false;
@@ -66,7 +64,7 @@ public class GUIResearchTableAncient extends GuiContainer{
                 initResearchScreen();
                 initag = 1;
             }
-            scrollingList.drawScreen(par2, par3, par1);
+            selector.drawScreen();
             Minecraft.getMinecraft().renderEngine.bindTexture(paperTexture);
             drawTexturedModalRect(x + 175, y + 10, 0, 0, 180, 180);
         }
@@ -128,7 +126,7 @@ public class GUIResearchTableAncient extends GuiContainer{
     protected void actionPerformed(GuiButton button){
         if(button.id == 0){
             screenPage = 0;
-            if(buttonList.size() >= 3) buttonList.remove(2);
+            if(buttonList.size() >= 3) for(int i=2;i<buttonList.size();i++) buttonList.remove(i);
         }
         if(button.id == 1){
             screenPage = 1;
@@ -155,7 +153,8 @@ public class GUIResearchTableAncient extends GuiContainer{
             relations = ResearchUtils.sortRelations(relations);
             if(ResearchData.researchRelations.contains(relations)){
                 int targetID = ResearchData.researchRelations.indexOf(relations);
-                this.buttonList.add(new IPaperButton(++onPaperResearchCount, x + 330, y + 160, 22, 22, "", targetID));
+                this.buttonList.add(new IPaperButton(++onPaperResearchCount, x + 300, y + 150, 22, 22, "", targetID));
+                ResearchUtils.finishedResearch.add(targetID);
             }
         }
     }
@@ -171,34 +170,7 @@ public class GUIResearchTableAncient extends GuiContainer{
                 this.drawString(mc.fontRenderer, title, this.xPosition + (this.width - mc.fontRenderer.getStringWidth(title)) / 2, this.yPosition + 4, 0x404040);
             }
         });
-        scrollingList = new IScrollingList(mc, 160, 10, offsetY + 18, offsetY + 170, offsetX + 14, 30, ResearchUtils.finishedResearch.size()) {
-            @Override
-            protected void drawSlot(int index, int var2, int var3, int var4, Tessellator var5) {
-                Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
-                drawTexturedModalRect(this.left + 20 + (index % 4) * 30, var3, 16, 32, 22, 22);
-                //drawString(mc.fontRenderer, "" + index, this.left + 3, var3 + 2, 0x404040);
-            }
-
-            @Override
-            protected void drawInfo(int mouseX, int mouseY, int index){
-                String name = I18n.format("research" + index + ".name");
-                String description = I18n.format("research" + index + ".description");
-                drawString(mc.fontRenderer,  name, mouseX + 5, mouseY + 5, 0x404040);
-                drawString(mc.fontRenderer,  description, mouseX + 5, mouseY + 14, 0x404040);
-            }
-
-            @Override
-            protected void drawChosen(int index, int var19){
-                Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
-                drawTexturedModalRect(this.left + 20 + (index % 4) * 30, var19, 16, 58, 22, 22);
-            }
-
-            @Override
-            protected void elementClicked(int index, boolean doubleClick){
-                selectedIndex = index;
-            }
-        };
-        scrollingList.registerScrollButtons(buttonList, 3, 4);
+        selector = new IResearchSelector(mc, 160, 152, offsetX + 14, offsetY + 18);
     }
 }
 
