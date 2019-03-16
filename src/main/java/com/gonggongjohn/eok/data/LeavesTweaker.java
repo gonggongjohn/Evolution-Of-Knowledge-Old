@@ -20,7 +20,7 @@ public class LeavesTweaker {
 			if(event.block instanceof BlockLeaves) {
 				//添加掉落物
 				event.drops.add(new ItemStack(Items.stick));
-				event.dropChance = 0.7F;
+				event.dropChance = 0.6F;
 			}
 		}
 		
