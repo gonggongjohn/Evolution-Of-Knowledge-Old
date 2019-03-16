@@ -13,7 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -29,17 +28,19 @@ public class GUIResearchTableAncient extends GuiContainer{
     private int x,y;
     private InventoryPlayer inventory;
     private TEResearchTableAncient te;
-    private static Logger logger;
     private int screenPage,initag;
     private IResearchSelector selector;
     private int selectedIndex = -1;
-    private int onPaperResearchCount = 2;
+    private int onPaperResearchCount = 3;
     private boolean isButtonCreated = false;
     private ArrayList<Integer> lineSet = new ArrayList<Integer>();
     private ArrayList<Integer> relations = new ArrayList<Integer>();
     private boolean isLineComplete = true;
     private int isNewBtn = -1;
     private int relationFrom=-1,relationTo=-1;
+    private boolean firstPress = true;
+    private int lastMouseY = 0, mouseX = 0, mouseY = 0;
+    private int shiftdistance = 0;
 
     public GUIResearchTableAncient(TEResearchTableAncient te, EntityPlayer player) {
         super(new ContainerResearchTableAncient(te, player));
@@ -47,7 +48,6 @@ public class GUIResearchTableAncient extends GuiContainer{
         this.te = te;
         this.xSize = 360;
         this.ySize = 210;
-        logger = LogManager.getLogger(EOK.MODID);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GUIResearchTableAncient extends GuiContainer{
                 initResearchScreen();
                 initag = 1;
             }
-            selector.drawScreen();
+            selector.drawScreen(shiftdistance, mouseX, mouseY);
             Minecraft.getMinecraft().renderEngine.bindTexture(paperTexture);
             drawTexturedModalRect(x + 175, y + 10, 0, 0, 180, 180);
         }
@@ -72,7 +72,12 @@ public class GUIResearchTableAncient extends GuiContainer{
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX,int mouseY){
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
         if(screenPage == 1){
+            if(mouseX >= x + TextureSizeData.scrollButtonLeft && mouseX <= x + TextureSizeData.scrollButtonLeft + 8 && mouseY >= y + TextureSizeData.scrollButtonTop && mouseY <= y + TextureSizeData.scrollButtonTop + 128){
+                updateScrollPostion(3, mouseY);
+            }
             if(selectedIndex != -1 && mouseX >= x + 175 && mouseX <= x + 355 && mouseY >= y + 10 && mouseY <= y + 190){
                 if(Mouse.isButtonDown(0) && !isButtonCreated){
                     //SelectedIndex needs to be changed to the actual research ID
@@ -100,22 +105,22 @@ public class GUIResearchTableAncient extends GuiContainer{
         paperTexture = new ResourceLocation(EOK.MODID, "textures/gui/paper_" + (rand.nextInt(4) + 1) + ".png");
         offsetX = (this.width - this.xSize) / 2;
         offsetY = (this.height - this.ySize) / 2;
-        this.buttonList.add(new GuiButton(0, offsetX - 48, offsetY, 48, 16, ""){
+        this.buttonList.add(new GuiButton(0, offsetX - 65, offsetY, 65, 16, ""){
             @Override
             public void drawButton(Minecraft mc, int mouseX, int mouseY){
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 16, 96, this.width, this.height);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 8, this.width, this.height);
                 String title = I18n.format("button.screenBrowse.title");
                 this.drawString(mc.fontRenderer, title, this.xPosition + (this.width - mc.fontRenderer.getStringWidth(title)) / 2, this.yPosition + 4, 0x404040);
             }
         });
-        this.buttonList.add(new GuiButton(1, offsetX - 48, offsetY + 24, 48, 16, "") {
+        this.buttonList.add(new GuiButton(1, offsetX - 65, offsetY + 24, 65, 16, "") {
             @Override
             public void drawButton(Minecraft mc, int mouseX, int mouseY) {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, 16, 96, this.width, this.height);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 8, this.width, this.height);
                 String title = I18n.format("button.screenResearch.title");
                 this.drawString(mc.fontRenderer, title, this.xPosition + (this.width - mc.fontRenderer.getStringWidth(title)) / 2, this.yPosition + 4, 0x404040);
             }
@@ -132,7 +137,7 @@ public class GUIResearchTableAncient extends GuiContainer{
             screenPage = 1;
             initag = 0;
         }
-        if(button.id >= 3 && button.id != isNewBtn){
+        if(button.id >= 4 && button.id != isNewBtn){
             if(isLineComplete){
                 lineSet.add(button.xPosition - this.x);
                 lineSet.add(button.yPosition - this.y);
@@ -153,7 +158,7 @@ public class GUIResearchTableAncient extends GuiContainer{
             relations = ResearchUtils.sortRelations(relations);
             if(ResearchData.researchRelations.contains(relations)){
                 int targetID = ResearchData.researchRelations.indexOf(relations);
-                this.buttonList.add(new IPaperButton(++onPaperResearchCount, x + 300, y + 150, 22, 22, "", targetID));
+                this.buttonList.add(new IPaperButton(++onPaperResearchCount, x + 300, y + 150, 22, 22, "", targetID).setJustFinish());
                 ResearchUtils.finishedResearch.add(targetID);
             }
         }
@@ -170,7 +175,46 @@ public class GUIResearchTableAncient extends GuiContainer{
                 this.drawString(mc.fontRenderer, title, this.xPosition + (this.width - mc.fontRenderer.getStringWidth(title)) / 2, this.yPosition + 4, 0x404040);
             }
         });
-        selector = new IResearchSelector(mc, 160, 152, offsetX + 14, offsetY + 18);
+        this.buttonList.add(new GuiButton(3, offsetX + TextureSizeData.scrollButtonLeft, offsetY + TextureSizeData.scrollButtonTop, 8, 11, ""){
+            @Override
+            public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
+                this.drawTexturedModalRect(this.xPosition, this.yPosition, 16, 56, this.width, this.height);
+            }
+        });
+        selector = new IResearchSelector(mc, this, TextureSizeData.researchSelectorWidth, TextureSizeData.researchSelectorHeight, offsetX + TextureSizeData.researchSelectorLeft, offsetY + TextureSizeData.researchSelectorTop){
+            @Override
+            protected void selectedAction(int id){
+                selectedIndex = id;
+            }
+        };
+    }
+
+    private void updateScrollPostion(int scrollButoonIndex,int mouseY){
+        if(Mouse.isButtonDown(0)){
+            if(firstPress){
+                lastMouseY = mouseY;
+                firstPress = false;
+            }
+            else{
+                shiftdistance = mouseY - lastMouseY;
+                if(((GuiButton)this.buttonList.get(scrollButoonIndex)).yPosition == y + TextureSizeData.scrollButtonTop && shiftdistance > 0){
+                    ((GuiButton) this.buttonList.get(scrollButoonIndex)).yPosition = ((GuiButton) this.buttonList.get(scrollButoonIndex)).yPosition + shiftdistance;
+                }
+                if(((GuiButton)this.buttonList.get(scrollButoonIndex)).yPosition == y + TextureSizeData.scrollButtonTop + 117 && shiftdistance < 0){
+                    ((GuiButton) this.buttonList.get(scrollButoonIndex)).yPosition = ((GuiButton) this.buttonList.get(scrollButoonIndex)).yPosition + shiftdistance;
+                }
+                if(((GuiButton)this.buttonList.get(scrollButoonIndex)).yPosition != y + TextureSizeData.scrollButtonTop  && ((GuiButton)this.buttonList.get(scrollButoonIndex)).yPosition != y + TextureSizeData.scrollButtonTop + 117) {
+                    ((GuiButton) this.buttonList.get(scrollButoonIndex)).yPosition = ((GuiButton) this.buttonList.get(scrollButoonIndex)).yPosition + shiftdistance;
+                }
+                lastMouseY = mouseY;
+            }
+        }
+        else{
+            shiftdistance = 0;
+            firstPress = true;
+        }
     }
 }
 
