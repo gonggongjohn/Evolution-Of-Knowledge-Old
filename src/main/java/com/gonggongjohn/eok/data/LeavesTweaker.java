@@ -11,7 +11,7 @@ import net.minecraftforge.event.world.BlockEvent;
 
 public class LeavesTweaker {
 	//作者:zi_jing
-	//用途:破坏树叶有70%几率掉落木棍
+	//用途:破坏树叶有60%几率掉落木棍
 
 		@SubscribeEvent
 		public void Tweak(BlockEvent.HarvestDropsEvent event) {

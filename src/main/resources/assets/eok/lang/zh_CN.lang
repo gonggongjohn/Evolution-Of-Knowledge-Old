@@ -2,6 +2,7 @@ item.eokSymbol.name=EOK测试物品
 item.plantFiber.name=植物纤维
 
 tile.researchTableAncient.name=原始研究台
+tile.mainReservoirBlock.name=蓄水池主方块
 
 button.screenBrowse.title=浏览
 button.screenResearch.title=研究
