@@ -36,6 +36,7 @@ public class EOK{
         ResearchData.initRsearch();
         TileEntityHandler.registerTileEntities();
         BlockProperties.tweak();
+        RecipeHandler.setupRecipes();
         NetworkRegistry.INSTANCE.registerGuiHandler(EOK.instance, new GuiHandler());
         proxy.preInit(event);
     }

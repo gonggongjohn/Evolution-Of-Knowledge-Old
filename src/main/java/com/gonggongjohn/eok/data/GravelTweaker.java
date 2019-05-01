@@ -23,9 +23,10 @@ public class GravelTweaker {
 	public void Tweak(BlockEvent.HarvestDropsEvent event) {
 		if(event.block instanceof BlockGravel) {
 			event.drops.clear();
-			
+			//生成一个范围为0-100的随机整数
 			Random rand = new Random();
 			int i = rand.nextInt(100);
+			//判断随机数大小
 			if(i<=30) {
 				event.drops.add(new ItemStack(ItemHandler.itemFlintFragment));
 				event.dropChance = 1.0F;
@@ -38,7 +39,6 @@ public class GravelTweaker {
 			}
 			
 			//event.drops.add(new ItemStack(ItemHandler.itemFlintFragment));
-			//event.dropChance = 0.3F;
 		}
 	}
 	

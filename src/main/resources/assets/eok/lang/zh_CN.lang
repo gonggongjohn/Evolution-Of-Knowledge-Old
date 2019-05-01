@@ -1,6 +1,7 @@
 item.eokSymbol.name=EOK测试物品
 item.plantFiber.name=植物纤维
 item.flintFragment.name=燧石碎片
+item.chippedFlintFragment.name=打制燧石碎片
 
 tile.researchTableAncient.name=原始研究台
 tile.mainReservoirBlock.name=蓄水池主方块
