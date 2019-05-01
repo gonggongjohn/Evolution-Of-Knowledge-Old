@@ -1,6 +1,7 @@
 package com.gonggongjohn.eok.handlers;
 
 import com.gonggongjohn.eok.data.GrassTweaker;
+import com.gonggongjohn.eok.data.GravelTweaker;
 import com.gonggongjohn.eok.data.LeavesTweaker;
 import com.gonggongjohn.eok.data.TreeTweaker;
 
@@ -9,5 +10,6 @@ public class EventHandler {
 		new TreeTweaker();
 		new GrassTweaker();
 		new LeavesTweaker();
+		new GravelTweaker();
 	}
 }
