@@ -15,7 +15,7 @@ public class BlockHandler
     public static void setupBlock()
     {
         researchTableAncient = new BlockResearchTableAncient().setBlockName("researchTableAncient").setHardness(1.5F).setCreativeTab(EOK.tabEOK);
-        mainReservoirBlock = new MainReservoirBlock().setBlockName("mainReservoirBlock").setHardness(1.5F).setCreativeTab(EOK.tabEOK);
+        mainReservoirBlock = new MainReservoirBlock();
     }
 
     public static void registerBlock()
