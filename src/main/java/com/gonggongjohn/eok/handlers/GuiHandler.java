@@ -1,7 +1,10 @@
 package com.gonggongjohn.eok.handlers;
 
+import com.gonggongjohn.eok.containers.ContainerMainReservoir;
 import com.gonggongjohn.eok.containers.ContainerResearchTableAncient;
+import com.gonggongjohn.eok.gui.GUIMainReservoir;
 import com.gonggongjohn.eok.gui.GUIResearchTableAncient;
+import com.gonggongjohn.eok.tileEntities.TEMainReservoir;
 import com.gonggongjohn.eok.tileEntities.TEResearchTableAncient;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +22,9 @@ public class GuiHandler implements IGuiHandler {
             {
                 return new ContainerResearchTableAncient((TEResearchTableAncient)te, player);
             }
+            if (ID == 1){
+                return new ContainerMainReservoir((TEMainReservoir)te, player);
+            }
         }
         return null;
     }
@@ -32,6 +38,9 @@ public class GuiHandler implements IGuiHandler {
             if (ID == 0)
             {
                 return new GUIResearchTableAncient((TEResearchTableAncient)te, player);
+            }
+            if (ID == 1){
+                return new GUIMainReservoir((TEMainReservoir)te, player);
             }
         }
         return null;

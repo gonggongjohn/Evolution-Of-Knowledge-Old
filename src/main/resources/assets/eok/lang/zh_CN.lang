@@ -11,6 +11,8 @@ button.screenBrowse.title=浏览
 button.screenResearch.title=研究
 button.startResearch.title=开始研究
 
+message.structureNotComplete=结构不完整！
+
 research0.name=远古文明
 research0.description=早在刀耕火种的原始时期，人类已经开始尝试发现和总结自然的规律并试图运用它们。
 research1.name=计数准则

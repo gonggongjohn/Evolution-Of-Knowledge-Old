@@ -11,6 +11,8 @@ button.screenBrowse.title=Browse
 button.screenResearch.title=Research
 button.startResearch.title=Start Research
 
+message.structureNotComplete=Structure Not Completed!
+
 research0.name=Ancient civilizations
 research0.description=Early in the primitive period of slash-and-burn cultivation, humans began to try to discover and summarize the laws of nature and try to use them.
 research1.name=Counting criterion
