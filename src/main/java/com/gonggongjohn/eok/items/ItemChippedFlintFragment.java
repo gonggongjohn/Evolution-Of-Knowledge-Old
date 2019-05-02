@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.gonggongjohn.eok.handlers.ItemHandler;
+import com.gonggongjohn.eok.settings.ListBlocksMadeByStone;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
@@ -30,9 +31,12 @@ public class ItemChippedFlintFragment extends Item{
 	
 	@SubscribeEvent
 	public void Chip(PlayerInteractEvent event) {
-		ArrayList StoneBlocks = new ArrayList();
-		StoneBlocks.add(Blocks.stone);
-		StoneBlocks.add(Blocks.gravel);
+		
+		
+		ArrayList ListBlocksMadeByStone = new ListBlocksMadeByStone();
+		//ArrayList StoneBlocks = new ArrayList();
+		//StoneBlocks.add(Blocks.stone);
+		
 		if(event.action == Action.LEFT_CLICK_BLOCK) {
 			if(!event.entityPlayer.getEntityWorld().isRemote) {
 				//判断玩家是否持有物品
@@ -42,7 +46,7 @@ public class ItemChippedFlintFragment extends Item{
 					if(event.entityPlayer.inventory.getCurrentItem().getItem() == ItemHandler.itemFlintFragment) {
 						
 						//判断玩家击打的方块是否为石质方块
-						if(StoneBlocks.contains(event.world.getBlock(event.x, event.y, event.z))) {
+						if(ListBlocksMadeByStone.contains(event.world.getBlock(event.x, event.y, event.z))) {
 							//System.out.println("你正在使用燧石碎片挖石头！");
 							
 							ItemStack nItemStack = event.entityPlayer.getHeldItem();
