@@ -2,6 +2,7 @@ item.eokSymbol.name=Symbol Of EOK
 item.plantFiber.name=Plant Fiber
 item.flintFragment.name=Flint Fragment
 item.chippedFlintFragment.name=Chipped Flint Fragment
+item.gun.name=Gun
 
 tile.researchTableAncient.name=Ancient Research Table
 tile.mainReservoirBlock.name=Main Reservoir Block
