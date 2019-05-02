@@ -43,7 +43,7 @@ public class ItemChippedFlintFragment extends Item{
 						
 						//判断玩家击打的方块是否为石质方块
 						if(StoneBlocks.contains(event.world.getBlock(event.x, event.y, event.z))) {
-							System.out.println("你正在使用燧石碎片挖石头！");
+							//System.out.println("你正在使用燧石碎片挖石头！");
 							
 							ItemStack nItemStack = event.entityPlayer.getHeldItem();
 							//System.out.println("stacksize="+nItemStack.stackSize);

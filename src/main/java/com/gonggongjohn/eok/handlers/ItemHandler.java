@@ -1,6 +1,7 @@
 package com.gonggongjohn.eok.handlers;
 
 import com.gonggongjohn.eok.EOK;
+import com.gonggongjohn.eok.items.ItemChippedFlintFragment;
 import com.gonggongjohn.eok.items.ItemGun;
 
 import cpw.mods.fml.common.registry.GameRegistry;
