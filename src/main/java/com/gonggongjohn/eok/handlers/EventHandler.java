@@ -4,6 +4,7 @@ import com.gonggongjohn.eok.data.GrassTweaker;
 import com.gonggongjohn.eok.data.GravelTweaker;
 import com.gonggongjohn.eok.data.LeavesTweaker;
 import com.gonggongjohn.eok.data.TreeTweaker;
+import com.gonggongjohn.eok.items.ItemChippedFlintFragment;
 
 public class EventHandler {
 	public static void registerEvent() {
@@ -11,5 +12,6 @@ public class EventHandler {
 		new GrassTweaker();
 		new LeavesTweaker();
 		new GravelTweaker();
+		
 	}
 }

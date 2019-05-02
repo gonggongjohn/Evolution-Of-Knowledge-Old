@@ -15,16 +15,16 @@ public class LeavesTweaker {
 
 		@SubscribeEvent
 		public void Tweak(BlockEvent.HarvestDropsEvent event) {
-			
-			//判断破坏的方块是否为树叶
-			if(event.block instanceof BlockLeaves) {
-				//添加掉落物
-				event.drops.add(new ItemStack(Items.stick));
-				event.dropChance = 0.6F;
-				
+			if(!event.world.isRemote) {
+				//判断破坏的方块是否为树叶
+				if(event.block instanceof BlockLeaves) {
+					//添加掉落物
+					event.drops.add(new ItemStack(Items.stick));
+					event.dropChance = 0.6F;
+					
+				}
 			}
 		}
-		
 		//注册事件
 		public LeavesTweaker() {
 			MinecraftForge.EVENT_BUS.register(this);

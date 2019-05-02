@@ -19,15 +19,15 @@ public class GrassTweaker {
 		//System.out.println(event.block.getUnlocalizedName());
 		//System.out.println(event.drops);
 		//System.out.println(event.dropChance);
-		
-		//判断破坏的方块是否为草
-		if(event.block instanceof BlockTallGrass) {
-			//添加掉落物
-			event.drops.add(new ItemStack(ItemHandler.itemPlantFiber));
-			event.dropChance = 1.0F;
+		if(!event.world.isRemote) {
+			//判断破坏的方块是否为草
+			if(event.block instanceof BlockTallGrass) {
+				//添加掉落物
+				event.drops.add(new ItemStack(ItemHandler.itemPlantFiber));
+				event.dropChance = 1.0F;
+			}
 		}
 	}
-	
 	//注册事件
 	public GrassTweaker() {
 		MinecraftForge.EVENT_BUS.register(this);

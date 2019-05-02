@@ -1,6 +1,8 @@
 package com.gonggongjohn.eok.handlers;
 
 import com.gonggongjohn.eok.EOK;
+import com.gonggongjohn.eok.items.ItemChippedFlintFragment;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
@@ -14,7 +16,7 @@ public class ItemHandler {
         itemEOKSymbol = new Item().setUnlocalizedName("eokSymbol").setTextureName(EOK.MODID + ":itemEOKSymbol").setCreativeTab(EOK.tabEOK);
         itemPlantFiber = new Item().setUnlocalizedName("plantFiber").setTextureName(EOK.MODID + ":itemPlantFiber").setCreativeTab(EOK.tabEOK);
         itemFlintFragment = new Item().setUnlocalizedName("flintFragment").setTextureName(EOK.MODID + ":itemFlintFragment").setCreativeTab(EOK.tabEOK);
-        itemChippedFlintFragment = new Item().setUnlocalizedName("chippedFlintFragment").setTextureName(EOK.MODID + ":itemChippedFlintFragment").setCreativeTab(EOK.tabEOK);
+        itemChippedFlintFragment = new ItemChippedFlintFragment().setUnlocalizedName("chippedFlintFragment").setTextureName(EOK.MODID + ":itemChippedFlintFragment").setCreativeTab(EOK.tabEOK);
     }
 
     public static void registerItem(){
