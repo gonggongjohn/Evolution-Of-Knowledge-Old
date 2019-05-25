@@ -1,6 +1,7 @@
 package com.gonggongjohn.eok;
 
 import com.gonggongjohn.eok.data.BlockProperties;
+import com.gonggongjohn.eok.data.GrassTweaker;
 import com.gonggongjohn.eok.data.ResearchData;
 import com.gonggongjohn.eok.data.TreeTweaker;
 import com.gonggongjohn.eok.handlers.*;

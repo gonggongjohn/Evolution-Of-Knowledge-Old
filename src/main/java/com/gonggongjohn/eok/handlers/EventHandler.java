@@ -6,6 +6,8 @@ import com.gonggongjohn.eok.data.LeavesTweaker;
 import com.gonggongjohn.eok.data.TreeTweaker;
 import com.gonggongjohn.eok.items.ItemChippedFlintFragment;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+
 public class EventHandler {
 	public static void registerEvent() {
 		new TreeTweaker();
