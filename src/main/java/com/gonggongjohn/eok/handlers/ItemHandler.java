@@ -2,6 +2,7 @@ package com.gonggongjohn.eok.handlers;
 
 import com.gonggongjohn.eok.EOK;
 import com.gonggongjohn.eok.items.ItemChippedFlintFragment;
+import com.gonggongjohn.eok.items.ItemFlintFragment;
 import com.gonggongjohn.eok.items.ItemGun;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -17,12 +18,18 @@ public class ItemHandler {
 	public static void setupItem() {
 		itemEOKSymbol = new Item().setUnlocalizedName("eokSymbol").setTextureName(EOK.MODID + ":itemEOKSymbol")
 				.setCreativeTab(EOK.tabEOK);
+		
 		itemPlantFiber = new Item().setUnlocalizedName("plantFiber").setTextureName(EOK.MODID + ":itemPlantFiber")
 				.setCreativeTab(EOK.tabEOK);
-		itemFlintFragment = new Item().setUnlocalizedName("flintFragment")
-				.setTextureName(EOK.MODID + ":itemFlintFragment").setCreativeTab(EOK.tabEOK);
+		
+		itemFlintFragment = new ItemFlintFragment().setUnlocalizedName("flintFragment")
+				.setTextureName(EOK.MODID + ":itemFlintFragment")
+				.setCreativeTab(EOK.tabEOK);
+		
 		itemChippedFlintFragment = new ItemChippedFlintFragment().setUnlocalizedName("chippedFlintFragment")
-				.setTextureName(EOK.MODID + ":itemChippedFlintFragment").setCreativeTab(EOK.tabEOK);
+				.setTextureName(EOK.MODID + ":itemChippedFlintFragment")
+				.setCreativeTab(EOK.tabEOK);
+		
 		itemGun = new ItemGun();
 	}
 
