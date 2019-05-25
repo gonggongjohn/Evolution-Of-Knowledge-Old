@@ -5,7 +5,7 @@ import com.gonggongjohn.eok.data.GrassTweaker;
 import com.gonggongjohn.eok.data.ResearchData;
 import com.gonggongjohn.eok.data.TreeTweaker;
 import com.gonggongjohn.eok.handlers.*;
-import com.gonggongjohn.eok.settings.ListBlocksMadeByStone;
+import com.gonggongjohn.eok.settings.ListHardBlocks;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
