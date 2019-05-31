@@ -6,6 +6,12 @@ import net.minecraft.init.Blocks;
 
 public class ListHardBlocks extends ArrayList{
 	
+	//
+	//作者：zi_jing
+	//这个ArrayList包含了所有的硬质方块，可以用在打制燧石等地方
+	//使用示例：com.gonggongjohn.eok.items.ItemFlintFragment
+	//
+	
 	public ListHardBlocks() {
 		/*
 		this.add(Blocks.bedrock);
@@ -13,6 +19,21 @@ public class ListHardBlocks extends ArrayList{
 		this.add(Blocks.brick_stairs);
 		this.add(Blocks.coal_block);
 		*/
+		
+		
+		//以下可以添加mod方块
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//----------------------------------------------------------------------------------
+		
+		//原版方块
 		
 		this.add(Blocks.stone);
 		this.add(Blocks.cobblestone);

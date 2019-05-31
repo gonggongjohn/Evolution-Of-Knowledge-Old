@@ -2,8 +2,28 @@ package com.gonggongjohn.eok.data;
 
 import net.minecraft.init.Blocks;
 
+//
+//作者：zi_jing
+//用于修改所有方块的硬度（类似MITE）
+//使游戏更硬核
+//
+
 public class BlockProperties {
     public static void tweak() {
+    	
+    	//mod方块硬度修改
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	//------------------------------------------------------------------------------
+    	
+    	//以下为原版方块的修改
         Blocks.grass.setHardness(5.2F);
         Blocks.dirt.setHardness(5.0F);
         Blocks.log.setHardness(5.0F);

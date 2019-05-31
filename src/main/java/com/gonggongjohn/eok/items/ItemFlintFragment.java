@@ -17,6 +17,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
+//作者：zi_jing
+
 public class ItemFlintFragment extends Item{
 	
 	

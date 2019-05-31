@@ -9,9 +9,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 
+
+//
+//作者:zi_jing
+//用途:破坏树叶有60%几率掉落木棍
+//
+
 public class LeavesTweaker {
-	//作者:zi_jing
-	//用途:破坏树叶有60%几率掉落木棍
+	
 
 		@SubscribeEvent
 		public void Tweak(BlockEvent.HarvestDropsEvent event) {
