@@ -35,7 +35,7 @@ public class IResearchSelector {
     public void drawScreen(int shiftDistance, int mouseX, int mouseY){
         if (this.client.theWorld != null)
         {
-            this.drawGradientRect(this.left, this.top, this.left + this.width, this.top + this.height, -1072689136, -804253680);
+            //this.drawGradientRect(this.left, this.top, this.left + this.width, this.top + this.height, -1072689136, -804253680);
             Minecraft.getMinecraft().renderEngine.bindTexture(componentTexture);
             parent.drawTexturedModalRect(this.left + this.width - 8, this.top, 0, 56, 8, 128);
             totalShiftDistance = totalShiftDistance + shiftDistance;

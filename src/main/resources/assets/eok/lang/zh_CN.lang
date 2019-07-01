@@ -2,16 +2,28 @@ item.eokSymbol.name=EOK测试物品
 item.plantFiber.name=植物纤维
 item.flintFragment.name=燧石碎片
 item.chippedFlintFragment.name=打制燧石碎片
-item.gun.name=枪
+item.gun_revolver.name=左轮手枪
+item.gun_airGun.name=气枪
+item.gun_automaticRifle.name=自动步枪
+
+item.gun.bulletNumber=剩余子弹: %d/%d
+item.heatableItem.temperature=温度: %d℃
 
 tile.researchTableAncient.name=原始研究台
 tile.mainReservoirBlock.name=蓄水池主方块
+tile.originalForgeFurnace.name=原始锻造炉
 
 button.screenBrowse.title=浏览
 button.screenResearch.title=研究
 button.startResearch.title=开始研究
 
+key.eok.showTime=显示时间
+key.categories.eok=从无知到先知
+
+message.showTime=世界存在时间为: %s
 message.structureNotComplete=结构不完整！
+
+death.attack.byBullet=%s被子弹杀死了
 
 research0.name=远古文明
 research0.description=早在刀耕火种的原始时期，人类已经开始尝试发现和总结自然的规律并试图运用它们。
@@ -44,4 +56,4 @@ research13.description=
 
 button.startResearch.name=开始研究
 
-itemGroup.eok= 从无知到先知
+itemGroup.eok=从无知到先知

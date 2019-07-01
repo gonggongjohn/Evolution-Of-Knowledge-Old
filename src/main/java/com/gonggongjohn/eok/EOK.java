@@ -1,11 +1,8 @@
 package com.gonggongjohn.eok;
 
 import com.gonggongjohn.eok.data.BlockProperties;
-import com.gonggongjohn.eok.data.GrassTweaker;
 import com.gonggongjohn.eok.data.ResearchData;
-import com.gonggongjohn.eok.data.TreeTweaker;
 import com.gonggongjohn.eok.handlers.*;
-import com.gonggongjohn.eok.settings.ListHardBlocks;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -18,7 +15,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 public class EOK{
     public static final String MODID = "eok";
     public static final String NAME = "Evolution Of Knowledge";
-    public static final String VERSION = "0.0.1";
+    public static final String VERSION = "0.0.7";
 
     @SidedProxy(clientSide = "com.gonggongjohn.eok.ClientProxy", serverSide = "com.gonggongjohn.eok.CommonProxy")
     public static CommonProxy proxy;
@@ -28,6 +25,7 @@ public class EOK{
     public static EOK instance;
 
     public static CreativeTabEOK tabEOK = new CreativeTabEOK();
+	public static CreativeTabHeatableItem tabHeatableItem = new CreativeTabHeatableItem();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -38,7 +36,6 @@ public class EOK{
         ResearchData.initRsearch();
         TileEntityHandler.registerTileEntities();
         BlockProperties.tweak();
-        RecipeHandler.setupRecipes();
         NetworkRegistry.INSTANCE.registerGuiHandler(EOK.instance, new GuiHandler());
         proxy.preInit(event);
     }
@@ -47,6 +44,7 @@ public class EOK{
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
         EventHandler.registerEvent();
+        RecipeHandler.setupRecipes();
     }
 
     @Mod.EventHandler

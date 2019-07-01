@@ -2,16 +2,28 @@ item.eokSymbol.name=Symbol Of EOK
 item.plantFiber.name=Plant Fiber
 item.flintFragment.name=Flint Fragment
 item.chippedFlintFragment.name=Chipped Flint Fragment
-item.gun.name=Gun
+item.gun_revolver.name=Revolver
+item.gun_airGun.name=Air Gun
+item.gun_automaticRifle.name=Automatic Rifle
+
+item.gun.bulletNumber=Surplus Bullet: %d/%d
+item.heatableItem.temperature:Temperature: %d℃
 
 tile.researchTableAncient.name=Ancient Research Table
 tile.mainReservoirBlock.name=Main Reservoir Block
+tile.originalForgeFurnace.name=Original Forge Furnace
 
 button.screenBrowse.title=Browse
 button.screenResearch.title=Research
 button.startResearch.title=Start Research
 
+key.eok.showTime=Show Time
+key.categories.eok=Evolution Of Knowledge
+
+message.showTime=The total world time is: %s
 message.structureNotComplete=Structure Not Completed!
+
+death.attack.byBullet=%s was killed by a bullet
 
 research0.name=Ancient civilizations
 research0.description=Early in the primitive period of slash-and-burn cultivation, humans began to try to discover and summarize the laws of nature and try to use them.

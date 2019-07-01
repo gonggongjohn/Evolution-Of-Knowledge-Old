@@ -1,6 +1,8 @@
 package com.gonggongjohn.eok;
 
+import com.gonggongjohn.eok.entity.EntityAirBullet;
 import com.gonggongjohn.eok.entity.EntityBullet;
+import com.gonggongjohn.eok.entity.EntityRifleBullet;
 import com.gonggongjohn.eok.handlers.BlockHandler;
 import com.gonggongjohn.eok.handlers.ConfigHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -12,6 +14,8 @@ public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
 		new ConfigHandler(event);
 		EntityRegistry.registerModEntity(EntityBullet.class, "Bullet", 0, EOK.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(EntityAirBullet.class, "AirBullet", 0, EOK.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(EntityRifleBullet.class, "RifleBullet", 0, EOK.instance, 256, 1, true);
 	}
 
 	public void init(FMLInitializationEvent event) {

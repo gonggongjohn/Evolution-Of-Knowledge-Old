@@ -1,5 +1,6 @@
 package com.gonggongjohn.eok.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -7,7 +8,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class EntityBullet extends EntityThrowable {
+public abstract class EntityBullet extends EntityThrowable {
+	public static DamageSource damageSourceBullet = new DamageSource("byBullet");
+
 	public EntityBullet(World worldIn) {
 		super(worldIn);
 	}
@@ -16,7 +19,7 @@ public class EntityBullet extends EntityThrowable {
 		super(worldIn, throwerIn);
 	}
 
-	public EntityBullet(World worldIn, double x, double y, double z) {
+	public EntityBullet(World worldIn, int x, int y, int z) {
 		super(worldIn, x, y, z);
 	}
 
@@ -25,9 +28,11 @@ public class EntityBullet extends EntityThrowable {
 		if (worldObj.isRemote) {
 			return;
 		}
-		if (movingObjectPosition.entityHit instanceof EntityLiving) {
+		Entity entityHit = movingObjectPosition.entityHit;
+		int i;
+		if (entityHit instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) movingObjectPosition.entityHit;
-			living.attackEntityFrom(DamageSource.generic, 10F);
+			living.attackEntityFrom(EntityBullet.damageSourceBullet, this.getDamage());
 		}
 		this.setDead();
 	}
@@ -40,8 +45,7 @@ public class EntityBullet extends EntityThrowable {
 		}
 	}
 
-	@Override
-	protected float func_70182_d() {
-		return 100F;
+	protected float getDamage() {
+		return 0F;
 	}
 }
