@@ -6,10 +6,21 @@ import net.minecraft.item.ItemStack;
 public class HeatIndex {
 	public float specificHeat;
 	public float melt;
-	public ItemStack input;
+	public ItemStack input, output;
 
-	public HeatIndex(HeatRaw raw) {
+	public HeatIndex(ItemStack input, HeatRaw raw) {
+		this.input = input;
+		this.specificHeat = raw.specificHeat;
+		melt = raw.melt;
+	}
 
+	public HeatIndex(ItemStack input, HeatRaw raw, ItemStack output) {
+		this(input, raw);
+		this.output = output;
+	}
+
+	public boolean hasOutput() {
+		return output != null;
 	}
 
 	public boolean match(ItemStack stack) {
@@ -20,7 +31,7 @@ public class HeatIndex {
 		if (item != input.getItem()) {
 			return false;
 		}
-		if (item.getHasSubtypes() && input.getItemDamage() != 32767 && stack.getItemDamage() != input.getItemDamage()) {
+		if (item.getHasSubtypes() && stack.getItemDamage() != input.getItemDamage()) {
 			return false;
 		}
 		return true;

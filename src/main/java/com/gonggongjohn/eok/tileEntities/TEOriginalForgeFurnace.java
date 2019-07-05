@@ -1,11 +1,13 @@
 package com.gonggongjohn.eok.tileEntities;
 
-import java.util.Random;
-
+import com.gonggongjohn.eok.api.HeatIndex;
 import com.gonggongjohn.eok.api.HeatRegistry;
+import com.gonggongjohn.eok.api.HeatableTool;
+import com.gonggongjohn.eok.handlers.HeatableItemHandler;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -14,18 +16,97 @@ import net.minecraftforge.common.util.Constants;
 
 public class TEOriginalForgeFurnace extends TileEntity implements IInventory {
 	private ItemStack[] items = new ItemStack[9];
+	private float fire = 20;
+	private int burnTime;
 
-	public void heatItem(int idx) {
+	public float getTemp() {
+		return fire;
+	}
+
+	public float getBurnTime() {
+		return burnTime;
+	}
+
+	private void heatItem(int idx) {
 		if (items[idx] == null) {
 			return;
 		}
-		Random rnd = new Random();
 		HeatRegistry registry = HeatRegistry.getInstance();
+		HeatIndex index = registry.findIndex(items[idx]);
+		if (index == null) {
+			return;
+		}
+		if (!index.hasOutput()) {
+			return;
+		}
+		float temp = HeatableTool.getTemperature(items[idx]);
+		float delta = HeatableTool.getIncreaseTemperature(items[idx], 5, fire);
+		if (fire > temp) {
+			temp += delta;
+			if (temp > fire) {
+				temp = fire;
+			}
+		} else if (fire < temp) {
+			temp -= delta / 5;
+			if (temp < fire) {
+				temp = fire;
+			}
+		}
+		HeatableTool.setTemperature(items[idx], temp);
+	}
+
+	private void recipeUpdate(int idx) {
+		if (!HeatableTool.isMelt(items[idx])) {
+			return;
+		}
+		HeatRegistry registry = HeatRegistry.getInstance();
+		float temp = HeatableTool.getTemperature(items[idx]);
+		ItemStack stack = registry.findIndex(items[idx]).output;
+		Item item = stack.getItem();
+		if (item == HeatableItemHandler.melt) {
+			items[idx] = null;
+		} else {
+			items[idx] = new ItemStack(item, stack.stackSize);
+			if (registry.findIndex(items[idx]) != null) {
+				items[idx] = HeatableTool.setTemperature(items[idx], temp);
+			}
+		}
 	}
 
 	@Override
 	public void updateEntity() {
-
+		int i;
+		if (items[0] != null && items[1] == null) {
+			items[1] = items[0];
+			items[0] = null;
+		}
+		if (items[1] != null && items[2] == null) {
+			items[2] = items[1];
+			items[1] = null;
+		}
+		if (burnTime <= 0 && items[2] != null) {
+			items[2] = null;
+			burnTime = 1600;
+		}
+		for (i = 3; i < 6; i++) {
+			heatItem(i);
+			recipeUpdate(i);
+		}
+		for (i = 6; i < 9; i++) {
+			items[i] = HeatableTool.updateTemperature(items[i]);
+		}
+		if (burnTime > 0) {
+			fire += 0.5;
+			burnTime--;
+		} else {
+			fire -= 0.1;
+		}
+		if (fire < 20) {
+			fire = 20;
+		}
+		if (fire > 900) {
+			fire = 900;
+		}
 	}
 
 	@Override
@@ -67,7 +148,6 @@ public class TEOriginalForgeFurnace extends TileEntity implements IInventory {
 		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
 			stack.stackSize = getInventoryStackLimit();
 		}
-		markDirty();
 	}
 
 	@Override
@@ -94,6 +174,8 @@ public class TEOriginalForgeFurnace extends TileEntity implements IInventory {
 				items[b] = ItemStack.loadItemStackFromNBT(comp);
 			}
 		}
+		fire = nbt.getFloat("fire");
+		burnTime = nbt.getInteger("burnTime");
 	}
 
 	@Override
@@ -109,8 +191,9 @@ public class TEOriginalForgeFurnace extends TileEntity implements IInventory {
 				list.appendTag(comp);
 			}
 		}
-
 		nbt.setTag("Items", list);
+		nbt.setFloat("fire", fire);
+		nbt.setInteger("burnTime", burnTime);
 	}
 
 	@Override

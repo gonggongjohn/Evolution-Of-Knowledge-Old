@@ -42,7 +42,8 @@ public class GuiHandler implements IGuiHandler {
 			case 1:
 				return new GUIMainReservoir((TEMainReservoir) te, player);
 			case 2:
-				return new GUIOriginalForgeFurnace((TEOriginalForgeFurnace) te, player);
+				return new GUIOriginalForgeFurnace(
+						new ContainerOriginalForgeFurnace((TEOriginalForgeFurnace) te, player));
 			}
 		}
 		return null;

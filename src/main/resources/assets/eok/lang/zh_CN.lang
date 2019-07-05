@@ -7,7 +7,25 @@ item.gun_airGun.name=气枪
 item.gun_automaticRifle.name=自动步枪
 
 item.gun.bulletNumber=剩余子弹: %d/%d
-item.heatableItem.temperature=温度: %d℃
+
+item.heatableIronIngot.name=铁锭
+
+item.heatable.warming=暖
+item.heatable.hot=烫
+item.heatable.veryHot=灼热
+item.heatable.faintRed=淡红
+item.heatable.darkRed=暗红
+item.heatable.brightRed=亮红
+item.heatable.orange=橙
+item.heatable.yellow=黄
+item.heatable.yellowWhite=黄白
+item.heatable.white=白
+item.heatable.brilliantWhite=炽白
+item.heatable.melt=熔化
+item.heatable.danger=**危险**
+item.heatable.weldable=可焊接
+item.heatable.workable=可加工
+item.heatable.temperature=温度: %d℃
 
 tile.researchTableAncient.name=原始研究台
 tile.mainReservoirBlock.name=蓄水池主方块

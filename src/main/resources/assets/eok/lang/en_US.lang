@@ -7,7 +7,25 @@ item.gun_airGun.name=Air Gun
 item.gun_automaticRifle.name=Automatic Rifle
 
 item.gun.bulletNumber=Surplus Bullet: %d/%d
-item.heatableItem.temperature:Temperature: %d℃
+
+item.heatableIronIngot.name=Iron Ingot
+
+item.heatable.warming=Warming
+item.heatable.hot=Hot
+item.heatable.veryHot=Very Hot
+item.heatable.faintRed=Faint Red
+item.heatable.darkRed=Dark Red
+item.heatable.brightRed=Bright Red
+item.heatable.orange=Orange
+item.heatable.yellow=Yellow
+item.heatable.yellowWhite=Yellow White
+item.heatable.white=White
+item.heatable.brilliantWhite=Brilliant White
+item.heatable.melt=Melted
+item.heatable.danger=**Danger**
+item.heatable.weldable=Can Weld
+item.heatable.workable=Can Work
+item.heatable.temperature=Temperature: %d℃
 
 tile.researchTableAncient.name=Ancient Research Table
 tile.mainReservoirBlock.name=Main Reservoir Block

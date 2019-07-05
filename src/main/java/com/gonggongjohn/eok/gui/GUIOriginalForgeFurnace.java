@@ -18,13 +18,11 @@ import net.minecraft.util.ResourceLocation;
 @SideOnly(Side.CLIENT)
 public class GUIOriginalForgeFurnace extends GuiContainer {
 	private ResourceLocation texture = new ResourceLocation(EOK.MODID, "textures/gui/guiOriginalForgeFurnace.png");
-	private InventoryPlayer inventory;
-	private TEOriginalForgeFurnace te;
+	private ContainerOriginalForgeFurnace container;
 
-	public GUIOriginalForgeFurnace(TEOriginalForgeFurnace te, EntityPlayer player) {
-		super(new ContainerOriginalForgeFurnace(te, player));
-		inventory = player.inventory;
-		this.te = te;
+	public GUIOriginalForgeFurnace(ContainerOriginalForgeFurnace container) {
+		super(container);
+		this.container = container;
 	}
 
 	@Override
@@ -34,5 +32,13 @@ public class GUIOriginalForgeFurnace extends GuiContainer {
 		int offsetX = (this.width - this.xSize) / 2;
 		int offsetY = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(offsetX, offsetY, 0, 0, this.xSize, this.ySize);
+		int height = (int) (container.getBurnTime() / 1600 * 14 + 1);
+		this.drawTexturedModalRect(offsetX + 30, offsetY + 78 - height, 177, 14 - height, 14, height);
+		float temp = container.getFire();
+		int dis = (int) ((temp > 1500 ? 1500 : temp) / 1500 * 75 - 1);
+		this.drawTexturedModalRect(offsetX + 48 + dis, offsetY + 63, 177, 15, 5, 17);
+		fontRendererObj.drawString(I18n.format("tile.originalForgeFurnace.name"), offsetX + 5, offsetY + 5, 0x404040);
+		fontRendererObj.drawString(I18n.format("item.heatable.temperature", (int) temp), offsetX + 49, offsetY + 54,
+				0x404040);
 	}
 }
