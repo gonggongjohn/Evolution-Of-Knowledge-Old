@@ -13,8 +13,10 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
 		new ConfigHandler(event);
-		EntityRegistry.registerModEntity(EntityBullet.class, "Bullet", 0, EOK.instance, 256, 1, true);
+		HeatableItemHandler.setup();
+		HeatableItemHandler.register();
 		EntityRegistry.registerModEntity(EntityAirBullet.class, "AirBullet", 0, EOK.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(EntityPistolBullet.class, "PistolBullet", 0, EOK.instance, 256, 1, true);
 		EntityRegistry.registerModEntity(EntityRifleBullet.class, "RifleBullet", 0, EOK.instance, 256, 1, true);
 	}
 
